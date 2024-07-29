@@ -1,0 +1,81 @@
+<?page title="personaModal" contentType="text/html;charset=UTF-8"?>
+
+<?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
+
+<zk>
+
+
+	<window title="Persona Crear/Ver/Editar" border="normal"
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp" width="500px">
+
+		<tablelayout columns="2">
+
+			<tablechildren>
+				<label value="ID:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@load(vm.personaSelected.personaid)" readonly="true" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Documento Tipo:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+					<finder	finderValue="@load(vm.personaSelected.documentoTipo.tipo)"
+								finderModel="@init(vm.documentoTipoFinder)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Documento #:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.personaSelected.documentoNum)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Razón Social:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.personaSelected.razonSocial)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Direccion:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.personaSelected.direccion)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Correo:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.personaSelected.correo)" />
+			</tablechildren>
+			
+				
+			
+			
+			
+		</tablelayout>
+
+		<space height="10px" />
+
+		<hlayout>
+
+			<button label="Aceptar" onClick="@command('guardar')" />
+
+		</hlayout>
+
+
+
+
+	</window>
+</zk>

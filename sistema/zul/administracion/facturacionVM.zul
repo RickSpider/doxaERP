@@ -1,0 +1,61 @@
+<?page title="Facturacion" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Facturacion" border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.administracion.FacturacionVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<tablelayout columns="4">
+		
+			<tablechildren>
+				<label value="RUC:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+					<finder	finderValue="@load(vm.ventaSelected.persona.documentoNum)"
+								finderModel="@init(vm.personaFinder)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Persona:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+				<textbox value="@load(vm.ventaSelected.razonSocial)" readonly="true" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Tipo Comprobante:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+				
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Condicion de Venta:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+				
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Moneda:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+				
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Cambio:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+				
+			</tablechildren>
+		
+		</tablelayout>
+
+	</window>
+</zk>

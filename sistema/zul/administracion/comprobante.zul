@@ -1,0 +1,164 @@
+<?page title="Comprobantes" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Comprobante" border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.administracion.ComprobanteVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<hlayout vflex="1">
+
+			<vlayout hflex="1" vflex="1">
+
+				<hbox pack="end" hflex="1">
+
+					<button label="Agregar" iconSclass=" z-icon-plus"
+						onClick="@command('modalComprobanteAgregar')"
+						disabled="@load(!vm.opCrearComprobante)" />
+
+				</hbox>
+
+				<listbox emptyMessage="lista vacía..." mold="paging" autopaging="true"
+					vflex="1" model="@load(vm.lComprobantes)" checkmark="true">
+
+					
+
+					<listhead >
+
+						<listheader hflex="min" align="center" />
+						<listheader label="ID" align="center"
+							hflex="min" />
+						<listheader label="TIMBRADO" align="center" />
+						<listheader label="SUCURSAL" align="center" />
+						<listheader label="PUNTO EXPEDICION" align="center" />
+						
+						<listheader label="F. EMISION" align="center" />
+						<listheader label="F. VENCIMIENTO" align="center" />
+						
+						<listheader label="INICIO" align="center" />
+						<listheader label="FIN" align="center" />
+						<listheader label="ACTIVO" align="center" />
+						
+						
+
+						<listheader align="center" width="150px" />
+
+
+					</listhead>
+					
+
+
+					<auxhead>
+
+						<auxheader />
+						<auxheader > 
+							<textbox value="@bind(vm.filtroColumns[0])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[1])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>
+
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[2])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[3])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[4])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[5])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[6])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[7])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[8])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
+						</auxheader>						
+					
+						<auxheader />
+
+					</auxhead>
+
+					<template name="model">
+
+						<listitem>
+							<listcell />
+							<listcell label="@load(each[0])" style="text-align: right;"/>
+							<listcell label="@load(each[1])" style="text-align: left;"/>
+							<listcell label="@load(each[2])" style="text-align: left;"/>
+							
+
+
+							<listcell>
+								<hlayout>
+																		
+									<button iconSclass="z-icon-edit"
+										onClick="@command('modalComprobante', comprobanteid=each[0])"
+										tooltiptext="Editar"
+										disabled="@load(!vm.opEditarComprobante)" />
+									<button iconSclass="z-icon-trash-o"
+										class="doxa-button-red"
+										onClick="@command('borrarComprobanteConfirmacion', comprobanteid=each[0])"
+										tooltiptext="Borrar"
+										disabled="@load(!vm.opBorrarComprobante)" />
+
+
+								</hlayout>
+
+
+							</listcell>
+
+
+						</listitem>
+
+
+					</template>
+
+					<listfoot>
+						<listfooter span="4" align="left">
+							<hlayout>
+								<label
+									value="@load(vm.lComprobantes.size())" />
+								<label value="items" />
+							</hlayout>
+						</listfooter>
+					</listfoot>
+
+
+				</listbox>
+
+			</vlayout>
+
+
+
+		</hlayout>
+
+	</window>
+</zk>

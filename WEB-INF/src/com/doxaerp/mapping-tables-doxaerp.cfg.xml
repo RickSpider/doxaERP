@@ -1,0 +1,10 @@
+<mapping class="com.doxaerp.modelo.Empresa" />
+<mapping class="com.doxaerp.modelo.Sucursal" />
+<mapping class="com.doxaerp.modelo.EmpresaUsuario" />
+<mapping class="com.doxaerp.modelo.EmpresaUsuarioSucursal" />
+<mapping class="com.doxaerp.modelo.Persona" />
+<mapping class="com.doxaerp.modelo.Producto" />
+<mapping class="com.doxaerp.modelo.Sucursal" />
+<mapping class="com.doxaerp.modelo.Deposito" />
+<mapping class="com.doxaerp.modelo.Comprobante" />
+<mapping class="com.doxaerp.modelo.Caja" />
