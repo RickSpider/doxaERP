@@ -1,10 +1,13 @@
 package com.doxaerp.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.doxacore.modelo.Tipo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -73,6 +77,9 @@ public class Venta extends ModeloERP implements Serializable {
 	private double total10;
 	private double total5;
 	private double totalExcento;
+	
+	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VentaDetalle> detalles = new ArrayList<VentaDetalle>();
 	
 	@Temporal(TemporalType.DATE)
 	private Date fechaAnulacion;
@@ -285,8 +292,13 @@ public class Venta extends ModeloERP implements Serializable {
 	public void setMotivoAnulacion(String motivoAnulacion) {
 		this.motivoAnulacion = motivoAnulacion;
 	}
-	
-	
-	
-	
+
+	public List<VentaDetalle> getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(List<VentaDetalle> detalles) {
+		this.detalles = detalles;
+	}
+
 }

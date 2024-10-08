@@ -7,7 +7,7 @@
 
 	<window title="Sucursal Crear/Ver/Editar" border="normal"
 		position="center,center" closable="true" mode="modal"
-		action="show: slideDown;hide: slideUp" width="500px">
+		action="show: slideDown;hide: slideUp" width="600px">
 
 		<tablelayout columns="2">
 
@@ -16,9 +16,10 @@
 			</tablechildren>
 
 			<tablechildren>
-				<textbox value="@load(vm.sucursalSelected.sucursalid)" readonly="true" />
+				<textbox value="@load(vm.sucursalSelected.sucursalid)"
+					readonly="true" />
 			</tablechildren>
-			
+
 			<tablechildren>
 				<label value="Nombre:" style="font-weight:bold" />
 			</tablechildren>
@@ -26,15 +27,17 @@
 			<tablechildren>
 				<textbox value="@bind(vm.sucursalSelected.nombre)" />
 			</tablechildren>
-			
+
 			<tablechildren>
-				<label value="Establecimiento #:" style="font-weight:bold" />
+				<label value="Establecimiento #:"
+					style="font-weight:bold" />
 			</tablechildren>
 
 			<tablechildren>
-				<textbox value="@bind(vm.sucursalSelected.establecimiento)" />
+				<textbox
+					value="@bind(vm.sucursalSelected.establecimiento)" />
 			</tablechildren>
-			
+
 			<tablechildren>
 				<label value="Dirección:" style="font-weight:bold" />
 			</tablechildren>
@@ -42,10 +45,78 @@
 			<tablechildren>
 				<textbox value="@bind(vm.sucursalSelected.direccion)" />
 			</tablechildren>
-			
 
 		</tablelayout>
 
+		<space height="10px" />
+
+		<listbox emptyMessage="lista vacía..." mold="paging"
+			autopaging="true" vflex="1"
+			model="@load(vm.sucursalSelected.usuarios)" checkmark="true">
+
+			<auxhead>
+
+				<auxheader colspan="6">
+
+					<hbox>
+
+						<finder
+							finderValue="@load(vm.usuarioSelected.account)"
+							finderModel="@init(vm.empresaUsuarioFinder)" />
+						<textbox
+							value="@load(vm.usuarioSelected.fullName)" readonly="true" width="200px" />
+						<button iconSclass="z-icon-plus" onClick="@command('agregarUsuario')"/>
+
+					</hbox>
+
+
+
+				</auxheader>
+
+			</auxhead>
+
+			<listhead>
+
+				<listheader hflex="min" align="center" />
+				<listheader label="ID" align="center" hflex="min" />
+				<listheader label="Usuario" hflex="min" align="center" />
+				<listheader label="Nombre" align="center" />
+
+				<listheader label="Punto de Expedicion" hflex="min" align="center" />
+
+
+
+				<listheader align="center" hflex="min" />
+
+
+			</listhead>
+
+			<template name="model">
+			
+				<listitem>
+				
+					<listcell/>
+					<listcell label="@load(each.usuario.usuarioid)" />
+					<listcell label="@load(each.usuario.account)" />
+					<listcell label="@load(each.usuario.fullName)" />
+					<listcell>
+					
+						<textbox value="@bind(each.puntoExpedicion)"/>
+					
+					</listcell> 
+					<listcell>
+					
+						<button iconSclass="z-icon-trash" />
+					
+					</listcell>
+				
+				</listitem>
+			
+			</template>
+
+
+		</listbox>
+		
 		<space height="10px" />
 
 		<hlayout>

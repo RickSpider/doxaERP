@@ -1,7 +1,7 @@
-<?page title="Depositos" contentType="text/html;charset=UTF-8"?>
+<?page title="Ajustes" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Deposito" border="normal"
-		viewModel="@id('vm') @init('com.doxaerp.sistema.empresa.DepositoVM')"
+	<window title="Ajuste" border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.abm.AjusteVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
 
 		<hlayout vflex="1">
@@ -11,13 +11,13 @@
 				<hbox pack="end" hflex="1">
 
 					<button label="Agregar" iconSclass=" z-icon-plus"
-						onClick="@command('modalDepositoAgregar')"
-						disabled="@load(!vm.opCrearDeposito)" />
+						onClick="@command('modalAjusteAgregar')"
+						disabled="@load(!vm.opCrearAjuste)" />
 
 				</hbox>
 
 				<listbox emptyMessage="lista vacía..." mold="paging" autopaging="true"
-					vflex="1" model="@load(vm.lDepositos)" checkmark="true">
+					vflex="1" model="@load(vm.lAjustes)" checkmark="true">
 
 					
 
@@ -26,8 +26,9 @@
 						<listheader hflex="min" align="center" />
 						<listheader label="ID" align="center"
 							hflex="min" />
-						<listheader label="SUCRUSAL" align="center" />
-						<listheader label="NOMBRE" align="center" />						
+						<listheader label="FECHA" align="center" />
+						<listheader label="DEPOSITO" align="center" />
+						<listheader label="TIPO AJUSTE" align="center" />
 
 						<listheader align="center" width="150px" />
 
@@ -39,20 +40,26 @@
 						<auxheader />
 						<auxheader > 
 							<textbox value="@bind(vm.filtroColumns[0])"
-								instant="true" onChange="@command('filtrarDeposito')"
+								instant="true" onChange="@command('filtrarAjuste')"
 								hflex="1" />
 						</auxheader>
 						<auxheader>
 							<textbox value="@bind(vm.filtroColumns[1])"
-								instant="true" onChange="@command('filtrarDeposito')"
+								instant="true" onChange="@command('filtrarAjuste')"
 								hflex="1" />
-						</auxheader>	
-						
+						</auxheader>
+
 						<auxheader>
 							<textbox value="@bind(vm.filtroColumns[2])"
-								instant="true" onChange="@command('filtrarDeposito')"
+								instant="true" onChange="@command('filtrarAjuste')"
 								hflex="1" />
-						</auxheader>			
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[3])"
+								instant="true" onChange="@command('filtrarAjuste')"
+								hflex="1" />
+						</auxheader>						
 					
 						<auxheader />
 
@@ -63,23 +70,24 @@
 						<listitem>
 							<listcell />
 							<listcell label="@load(each[0])" style="text-align: right;"/>
-							<listcell label="@load(each[1])" style="text-align: left;"/>	
-							<listcell label="@load(each[2])" style="text-align: left;"/>							
+							<listcell label="@load(each[1])" style="text-align: left;"/>
+							<listcell label="@load(each[2])"  style="text-align: Left;" />
+							<listcell label="@load(each[3])" />
+							
 
 
 							<listcell>
 								<hlayout>
 																		
 									<button iconSclass="z-icon-edit"
-										onClick="@command('modalDeposito', depositoid=each[0])"
+										onClick="@command('modalAjuste', ajusteid=each[0])"
 										tooltiptext="Editar"
-										disabled="@load(!vm.opEditarDeposito)" />
+										disabled="@load(!vm.opEditarAjuste)" />
 									<button iconSclass="z-icon-trash-o"
 										class="doxa-button-red"
-										onClick="@command('borrarDepositoConfirmacion', depositoid=each[0])"
+										onClick="@command('borrarAjusteConfirmacion', ajusteid=each[0])"
 										tooltiptext="Borrar"
-										disabled="@load(!vm.opBorrarDeposito)" />
-
+										disabled="@load(!vm.opBorrarAjuste)" />
 
 								</hlayout>
 
@@ -96,7 +104,7 @@
 						<listfooter span="4" align="left">
 							<hlayout>
 								<label
-									value="@load(vm.lDepositos.size())" />
+									value="@load(vm.lAjustes.size())" />
 								<label value="items" />
 							</hlayout>
 						</listfooter>

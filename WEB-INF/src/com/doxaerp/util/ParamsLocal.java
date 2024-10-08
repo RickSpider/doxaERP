@@ -33,6 +33,10 @@ public class ParamsLocal extends Params{
 	public static final String SIGLA_TIPO_CONDICIONVENTA_CONTADO = "CONDICIONVENTA_CONTADO";
 	public static final String SIGLA_TIPO_CONDICIONVENTA_CREDITO = "CONDICIONVENTA_CREDITO";
 	
+	public static final String SIGLA_TIPOTIPO_AJUSTE = "AJUSTE";
+	public static final String SIGLA_TIPO_AJUSTE_POSITIVO = "AJUSTE_POSITIVO";
+	public static final String SIGLA_TIPO_AJUSTE_NEGATIVO = "AJUSTE_NEGATIVO";
+	
 	/*
 	 EJEMPLO DE COMO CREAR PARAMETROS 
 	 
@@ -78,6 +82,10 @@ public class ParamsLocal extends Params{
 	public static final String OP_CREAR_CAJA = "CrearCaja";
 	public static final String OP_EDITAR_CAJA = "EditarCaja";
 	public static final String OP_BORRAR_CAJA = "BorrarCaja";
+	
+	public static final String OP_CREAR_AJUSTE = "CrearAjuste";
+	public static final String OP_EDITAR_AJUSTE = "EditarAjuste";
+	public static final String OP_BORRAR_AJUSTE = "BorrarAjuste";
 	
 	public static final String OP_CREAR_FACTURACION = "CrearFacturacion";
 	

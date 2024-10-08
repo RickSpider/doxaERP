@@ -1,6 +1,8 @@
 package com.doxaerp.sistema.abm;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -119,7 +121,8 @@ public class PersonaVM extends TemplateViewModelLocal{
 			this.personaSelected.setEmpresa(getCurrentEmpresa());
 			
 		}
-
+		
+		
 		modal = (Window) Executions.createComponents("/sistema/zul/abm/personaModal.zul", this.mainComponent, null);
 		Selectors.wireComponents(modal, this, false);
 		modal.doModal();

@@ -2,6 +2,7 @@ package com.doxaerp.sistema.empresa;
 
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -12,7 +13,9 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Notification;
 import org.zkoss.zul.Window;
 
+import com.doxacore.components.finder.FinderModel;
 import com.doxaerp.modelo.Deposito;
+import com.doxaerp.modelo.Sucursal;
 import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
 
@@ -100,8 +103,8 @@ public class DepositoVM extends TemplateViewModelLocal{
 	@Command
 	public void modalDeposito(@BindingParam("depositoid") long depositoid) {
 
-	
-
+		this.inicializarFinders();
+		
 		if (depositoid != -1) {
 
 			if (!this.opEditarDeposito)
@@ -115,6 +118,7 @@ public class DepositoVM extends TemplateViewModelLocal{
 
 			this.depositoSelected = new Deposito();
 			this.depositoSelected.setEmpresa(getCurrentEmpresa());
+			this.depositoSelected.setSucursal(getCurrentSucursal());
 			
 
 		}
@@ -145,6 +149,68 @@ public class DepositoVM extends TemplateViewModelLocal{
 
 			Notification.show("Los datos de la Nueva Deposito fueron agragados.");
 		}
+
+	}
+	
+	public FinderModel getSucursalFinder() {
+		return sucursalFinder;
+	}
+
+	public void setSucursalFinder(FinderModel sucursalFinder) {
+		this.sucursalFinder = sucursalFinder;
+	}
+
+	private FinderModel sucursalFinder;
+
+	@NotifyChange("*")
+	public void inicializarFinders() {
+		
+		String sqlSucursal = this.um.getSql("sucursal/buscarSucursal.sql")
+				.replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
+		
+		sucursalFinder = new FinderModel("SucursalUsuario", sqlSucursal);
+		
+		
+	}
+
+	public void generarFinders(@BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.sucursalFinder.getNameFinder()) == 0) {
+
+			this.sucursalFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.sucursalFinder, "listFinder");
+
+			return;
+		}
+		
+
+	}
+
+	@Command
+	public void finderFilter(@BindingParam("filter") String filter, @BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.sucursalFinder.getNameFinder()) == 0) {
+
+			this.sucursalFinder.setListFinder(this.filtrarListaObject(filter, this.sucursalFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.sucursalFinder, "listFinder");
+
+			return;
+		}
+		
+	
+	}
+
+	@Command
+	@NotifyChange({"sucursalUsuarioSelected"})
+	public void onSelectetItemFinder(@BindingParam("id") Long id, @BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.sucursalFinder.getNameFinder()) == 0) {
+
+			this.depositoSelected.setSucursal(this.reg.getObjectById(Sucursal.class.getName(), id));
+			return;
+			
+		}
+
 
 	}
 

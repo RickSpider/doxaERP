@@ -1,0 +1,33 @@
+<?page title="cambiarSucursalModal" contentType="text/html;charset=UTF-8"?>
+
+<?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
+
+<zk>
+
+	<window title="Cambiar Sucursal"
+		border="normal" position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp" width="500px"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.menuPopup.CambiarSucursalModalVM')">
+
+
+		<tablelayout>
+
+			<tablechildren>
+				<finder finderValue="@load(vm.sucursalUsuarioSelected.sucursal.nombre)"
+					finderModel="@init(vm.sucursalFinder)" />
+			</tablechildren>
+
+		</tablelayout>
+
+		<hlayout>
+
+			<button label="Guardar" onClick="@command('guardar')" />
+
+		</hlayout>
+
+
+
+
+	</window>
+</zk>

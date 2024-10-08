@@ -20,6 +20,15 @@
 			</tablechildren>
 			
 			<tablechildren>
+				<label value="Sucursal:" style="font-weight:bold" />
+			</tablechildren>
+			
+			<tablechildren>
+				<finder finderValue="@load(vm.depositoSelected.sucursal.nombre)"
+					finderModel="@init(vm.sucursalFinder)" />
+			</tablechildren>
+			
+			<tablechildren>
 				<label value="Nombre:" style="font-weight:bold" />
 			</tablechildren>
 

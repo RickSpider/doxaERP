@@ -26,6 +26,7 @@
 						<listheader hflex="min" align="center" />
 						<listheader label="ID" align="center"
 							hflex="min" />
+						<listheader label="TIPO COMPROBANTE" align="center" />
 						<listheader label="TIMBRADO" align="center" />
 						<listheader label="SUCURSAL" align="center" />
 						<listheader label="PUNTO EXPEDICION" align="center" />
@@ -100,6 +101,12 @@
 							<textbox value="@bind(vm.filtroColumns[8])"
 								instant="true" onChange="@command('filtrarComprobante')"
 								hflex="1" />
+						</auxheader>
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[9])"
+								instant="true" onChange="@command('filtrarComprobante')"
+								hflex="1" />
 						</auxheader>						
 					
 						<auxheader />
@@ -110,9 +117,16 @@
 
 						<listitem>
 							<listcell />
-							<listcell label="@load(each[0])" style="text-align: right;"/>
+							<listcell label="@load(each[0])" />
 							<listcell label="@load(each[1])" style="text-align: left;"/>
-							<listcell label="@load(each[2])" style="text-align: left;"/>
+							<listcell label="@load(each[2])" />
+							<listcell label="@load(each[3])" style="text-align: rigth;"/>
+							<listcell label="@load(each[4])" />
+							<listcell label="@load(each[5])" />
+							<listcell label="@load(each[6])" />
+							<listcell label="@load(each[7])" style="text-align: right;"/>
+							<listcell label="@load(each[8])" style="text-align: right;"/>
+							<listcell label="@load(each[9])" />
 							
 
 

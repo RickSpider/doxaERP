@@ -87,16 +87,27 @@
 						<listitem>
 							<listcell />
 							<listcell label="@load(each[0])" style="text-align: right;"/>
-							<listcell label="@load(each[1])" style="text-align: left;"/>						
-
+							<listcell label="@load(each[1])" style="text-align: left;"/>
+							<listcell label="@load(each[2])" style="text-align: left;"/>
+							<listcell label="@load(each[3])" style="text-align: left;"/>
+							<listcell label="@load(each[4])" style="text-align: left;"/>
+							<listcell label="@load(each[5])" style="text-align: left;"/>						
+						
 
 							<listcell>
 								<hlayout>
+									
+									<button iconSclass=" z-icon-lock "
+										class="doxa-button-orange"
+										onClick="@command('modalCerrar', cajaid=each[0])"
+										tooltiptext="Cerrar Caja"
+										disabled="@load(!vm.opEditarCaja)" />			
 																		
 									<button iconSclass="z-icon-edit"
 										onClick="@command('modalCaja', cajaid=each[0])"
 										tooltiptext="Editar"
 										disabled="@load(!vm.opEditarCaja)" />
+									
 									<button iconSclass="z-icon-trash-o"
 										class="doxa-button-red"
 										onClick="@command('borrarCajaConfirmacion', cajaid=each[0])"

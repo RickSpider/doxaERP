@@ -6,7 +6,7 @@ import org.zkoss.bind.annotation.Init;
 import com.doxacore.TemplateViewModel;
 import com.doxaerp.modelo.Empresa;
 import com.doxaerp.modelo.EmpresaUsuario;
-import com.doxaerp.modelo.EmpresaUsuarioSucursal;
+import com.doxaerp.modelo.SucursalUsuario;
 import com.doxaerp.modelo.Sucursal;
 
 public abstract class TemplateViewModelLocal extends TemplateViewModel{
@@ -35,14 +35,22 @@ public abstract class TemplateViewModelLocal extends TemplateViewModel{
 		return this.getCurrentEmpresaUsuario().getEmpresa();
 	}
 	
+	protected SucursalUsuario getCurrentSucursalUsuario() {
+		
+		EmpresaUsuario eu = this.getCurrentEmpresaUsuario();
+		
+		String campo[] = {"empresa","usuario", "actual"};
+		Object[] value = {eu.getEmpresa(),eu.getUsuario(), true};
+		
+		SucursalUsuario su = this.reg.getObjectByColumns(SucursalUsuario.class, campo, value);
+		
+		return su;
+		
+	}
+	
 	protected Sucursal getCurrentSucursal() {
 		
-		String campo[] = {"empresaUsuario", "actual"};
-		Object[] value = {this.getCurrentEmpresaUsuario(), true};
-		
-		EmpresaUsuarioSucursal eus =  this.reg.getObjectByColumns(EmpresaUsuarioSucursal.class, campo, value);
-		
-		return eus.getSucursal();
+		return this.getCurrentSucursalUsuario().getSucursal();
 	}
 
 }

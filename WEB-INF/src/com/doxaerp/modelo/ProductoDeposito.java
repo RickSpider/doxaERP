@@ -2,8 +2,6 @@ package com.doxaerp.modelo;
 
 import java.io.Serializable;
 
-import com.doxacore.modelo.Tipo;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,30 +11,27 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Trazabilidades")
-public class Trazabilidad extends ModeloERP implements Serializable {
-
+@Table(name = "ProductosDepositos")
+public class ProductoDeposito extends ModeloERP implements Serializable {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6461398043666911431L;
-	
+	private static final long serialVersionUID = -951729552354015722L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long trazabilidadid;
+	private Long productodepositoid;
 	
 	@ManyToOne
-	@JoinColumn(name = "productoid", nullable = false)
+	@JoinColumn(name = "Productoid", nullable = false)
 	private Producto producto;
 	
 	@ManyToOne
 	@JoinColumn(name = "depositoid", nullable = false)
 	private Deposito deposito;
 	
-	private double cantidad;
-	
-	private String Comentario;
+	private double cantidad = 0;
 	
 	@Override
 	public Object[] getArrayObjectDatos() {
@@ -50,12 +45,12 @@ public class Trazabilidad extends ModeloERP implements Serializable {
 		return null;
 	}
 
-	public Long getTrazabilidadid() {
-		return trazabilidadid;
+	public Long getProductodepositoid() {
+		return productodepositoid;
 	}
 
-	public void setTrazabilidadid(Long trazabilidadid) {
-		this.trazabilidadid = trazabilidadid;
+	public void setProductodepositoid(Long productodepositoid) {
+		this.productodepositoid = productodepositoid;
 	}
 
 	public Producto getProducto() {
@@ -81,14 +76,7 @@ public class Trazabilidad extends ModeloERP implements Serializable {
 	public void setCantidad(double cantidad) {
 		this.cantidad = cantidad;
 	}
-
-	public String getComentario() {
-		return Comentario;
-	}
-
-	public void setComentario(String comentario) {
-		Comentario = comentario;
-	}
-
 	
+	
+
 }

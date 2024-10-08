@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.doxacore.modelo.Usuario;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,13 +26,12 @@ public class EmpresaUsuario extends ModeloERP implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long empresausuarioid;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuarioid", nullable = false)
 	private Usuario usuario;
 	
 	private Boolean actual = false;
 	
-
 	@Override
 	public Object[] getArrayObjectDatos() {
 		// TODO Auto-generated method stub

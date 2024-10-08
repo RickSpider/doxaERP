@@ -2,6 +2,7 @@ package com.doxaerp.sistema.empresa;
 
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -12,7 +13,11 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Notification;
 import org.zkoss.zul.Window;
 
+import com.doxacore.components.finder.FinderModel;
+import com.doxacore.modelo.Tipo;
+import com.doxacore.modelo.Usuario;
 import com.doxaerp.modelo.Sucursal;
+import com.doxaerp.modelo.SucursalUsuario;
 import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
 
@@ -98,8 +103,9 @@ public class SucursalVM extends TemplateViewModelLocal{
 
 	@Command
 	public void modalSucursal(@BindingParam("sucursalid") long sucursalid) {
-
-	
+		
+		this.inicializarFinders();
+		this.usuarioSelected = null;
 
 		if (sucursalid != -1) {
 
@@ -144,6 +150,78 @@ public class SucursalVM extends TemplateViewModelLocal{
 			Notification.show("Los datos de la Nueva Sucursal fueron agragados.");
 		}
 
+	}
+	
+	
+	
+	
+	private FinderModel empresaUsuarioFinder;
+	private Usuario usuarioSelected;
+
+	@NotifyChange("*")
+	public void inicializarFinders() {
+
+		String sqlUsuario = this.um.getSql("empresaUsuario/buscarEmpresaUsuario.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"" );
+		empresaUsuarioFinder = new FinderModel("Usuario", sqlUsuario);
+		
+		
+	}
+
+	public void generarFinders(@BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.empresaUsuarioFinder.getNameFinder()) == 0) {
+
+			this.empresaUsuarioFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.empresaUsuarioFinder, "listFinder");
+
+			return;
+		}
+		
+
+	}
+
+	@Command
+	public void finderFilter(@BindingParam("filter") String filter, @BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.empresaUsuarioFinder.getNameFinder()) == 0) {
+
+			this.empresaUsuarioFinder.setListFinder(this.filtrarListaObject(filter, this.empresaUsuarioFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.empresaUsuarioFinder, "listFinder");
+
+			return;
+		}
+		
+	
+	}
+
+	@Command
+	@NotifyChange({"usuarioSelected"})
+	public void onSelectetItemFinder(@BindingParam("id") Long id, @BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.empresaUsuarioFinder.getNameFinder()) == 0) {
+
+			this.usuarioSelected = this.reg.getObjectById(Usuario.class.getName(), id);
+			return;
+			
+		}
+
+
+	}
+	
+	@Command
+	@NotifyChange({"sucursalSelected", "usuarioSelected"})
+	public void agregarUsuario() {
+		
+		SucursalUsuario su = new SucursalUsuario();
+		
+		su.setEmpresa(this.sucursalSelected.getEmpresa());
+		su.setSucursal(this.sucursalSelected);
+		su.setUsuario(usuarioSelected);
+		
+		this.sucursalSelected.getUsuarios().add(su);
+		
+		this.usuarioSelected = null;
+		
 	}
 
 	public List<Object[]> getlSucursales() {
@@ -200,6 +278,26 @@ public class SucursalVM extends TemplateViewModelLocal{
 
 	public void setFiltroColumns(String[] filtroColumns) {
 		this.filtroColumns = filtroColumns;
+	}
+
+	public FinderModel getEmpresaUsuarioFinderFinder() {
+		return empresaUsuarioFinder;
+	}
+
+	public void setEmpresaUsuarioFinder(FinderModel empresaUsuarioFinder) {
+		this.empresaUsuarioFinder = empresaUsuarioFinder;
+	}
+
+	public Usuario getUsuarioSelected() {
+		return usuarioSelected;
+	}
+
+	public void setUsuarioSelected(Usuario usuarioSelected) {
+		this.usuarioSelected = usuarioSelected;
+	}
+
+	public FinderModel getEmpresaUsuarioFinder() {
+		return empresaUsuarioFinder;
 	}
 	
 	

@@ -1,16 +1,23 @@
 package com.doxaerp.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.annotations.Immutable;
 
 import com.doxacore.modelo.Tipo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -45,6 +52,10 @@ public class Producto extends ModeloERP implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "ivatipoid", nullable = false)
 	private Tipo ivaTipo;
+	
+	@OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
+	@Immutable
+	private List<ProductoDeposito> inventario = new ArrayList<ProductoDeposito>();
 
 	private boolean controlStock = true;
 
@@ -111,6 +122,16 @@ public class Producto extends ModeloERP implements Serializable{
 
 	public void setMonedaVentaTipo(Tipo monedaVentaTipo) {
 		this.monedaVentaTipo = monedaVentaTipo;
+	}
+	
+	
+
+	public List<ProductoDeposito> getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(List<ProductoDeposito> inventario) {
+		this.inventario = inventario;
 	}
 
 	@Override

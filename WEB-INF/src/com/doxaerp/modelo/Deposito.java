@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +23,10 @@ public class Deposito extends ModeloERP implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long depositoid;
 	private String nombre;
+	
+	@ManyToOne
+	@JoinColumn(name = "sucursalid", nullable = false)
+	private Sucursal sucursal;
 
 	@Override
 	public Object[] getArrayObjectDatos() {
@@ -48,6 +54,14 @@ public class Deposito extends ModeloERP implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
 	}
 	
 	

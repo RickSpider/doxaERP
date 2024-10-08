@@ -9,8 +9,11 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Notification;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import com.doxacore.components.finder.FinderModel;
@@ -233,7 +236,7 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 	}
 
-	
+
 	
 	public FinderModel getIvaTipoFinder() {
 		return ivaTipoFinder;

@@ -15,7 +15,7 @@ import org.zkoss.zul.Window;
 import com.doxaerp.modelo.Deposito;
 import com.doxaerp.modelo.Empresa;
 import com.doxaerp.modelo.EmpresaUsuario;
-import com.doxaerp.modelo.EmpresaUsuarioSucursal;
+import com.doxaerp.modelo.SucursalUsuario;
 import com.doxaerp.modelo.Sucursal;
 import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
@@ -140,6 +140,12 @@ public class EmpresaVM extends TemplateViewModelLocal{
 
 		} else {
 			
+			EmpresaUsuario eu = new EmpresaUsuario();
+			eu.setEmpresa(this.empresaSelected);
+			eu.setUsuario(getCurrentUser());
+
+			eu = this.save(eu);
+			
 			Sucursal s = new Sucursal();
 			s.setEmpresa(this.empresaSelected);
 			s.setNombre(this.empresaSelected.getRazonSocial()+" Matriz");
@@ -147,26 +153,24 @@ public class EmpresaVM extends TemplateViewModelLocal{
 		
 			s = this.save(s);
 			
-			EmpresaUsuario eu = new EmpresaUsuario();
-			eu.setEmpresa(this.empresaSelected);
-			eu.setUsuario(getCurrentUser());
-
-			eu = this.save(eu);
-			
-			EmpresaUsuarioSucursal eus = new EmpresaUsuarioSucursal();
-			
-			eus.getEmpresausuariosucursalpk().setEmpresaUsuario(eu);
-			eus.getEmpresausuariosucursalpk().setSucursal(s);
-			
-			this.save(eus);
-			
 			Deposito d = new Deposito();
 			d.setEmpresa(this.empresaSelected);
-			d.setNombre(this.empresaSelected.getRazonSocial()+" - D. Matriz");
+			d.setNombre(this.empresaSelected.getRazonSocial()+" - Deposito Matriz");
+			d.setSucursal(s);
 			
 			this.save(d);
+
+			SucursalUsuario eus = new SucursalUsuario();
+			eus.setEmpresa(eu.getEmpresa());
+			eus.setUsuario(eu.getUsuario());
+			eus.setActual(true);
+			eus.setSucursal(s);
 			
-			Notification.show("Los datos de la Nueva Empresa fueron agragados.");
+			eus = this.save(eus);
+			
+			
+			
+			Notification.show("Los datos de la Nueva Empresa fueron agragadas.");
 		}
 		
 		this.cargarEmpresas();

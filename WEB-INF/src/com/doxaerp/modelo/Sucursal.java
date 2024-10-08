@@ -1,11 +1,17 @@
 package com.doxaerp.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,7 +31,8 @@ public class Sucursal extends ModeloERP implements Serializable{
 	private String establecimiento;
 	private String direccion;
 	
-	
+	@OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<SucursalUsuario> usuarios;
 
 	public Long getSucursalid() {
 		return sucursalid;
@@ -57,6 +64,16 @@ public class Sucursal extends ModeloERP implements Serializable{
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	
+	
+
+	public List<SucursalUsuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<SucursalUsuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	@Override

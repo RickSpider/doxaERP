@@ -44,7 +44,7 @@ public class FacturacionVM extends TemplateViewModelLocal{
 	public void limpiarVenta() {
 		
 		this.ventaSelected = new Venta();
-		
+		this.inicializarFinders();
 	}
 	
 	//seccion finder
@@ -52,7 +52,7 @@ public class FacturacionVM extends TemplateViewModelLocal{
 	private FinderModel personaFinder;	
 	private FinderModel comprobanteTipoFinder;
 	private FinderModel condicionVentaTipoFinder;
-	private FinderModel monedaTipoTipoFinder;
+	private FinderModel monedaTipoFinder;
 
 	@NotifyChange("*")
 	public void inicializarFinders() {
@@ -64,9 +64,9 @@ public class FacturacionVM extends TemplateViewModelLocal{
 		condicionVentaTipoFinder = new FinderModel("CondicionVenta", sqlCondicionVentatipo);
 		
 		String sqlMonedaTipo = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_TIPOTIPO_MONEDA );
-		monedaTipoTipoFinder = new FinderModel("Moneda", sqlMonedaTipo);
+		monedaTipoFinder = new FinderModel("Moneda", sqlMonedaTipo);
 		
-		String sqlPersonaBuscar = this.um.getSql("persona/buscarPersona.sql");
+		String sqlPersonaBuscar = this.um.getSql("persona/buscarPersona.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
 		personaFinder = new FinderModel("Persona", sqlPersonaBuscar);
 		
 	}
@@ -89,10 +89,10 @@ public class FacturacionVM extends TemplateViewModelLocal{
 			return;
 		}
 		
-		if (finder.compareTo(this.monedaTipoTipoFinder.getNameFinder()) == 0) {
+		if (finder.compareTo(this.monedaTipoFinder.getNameFinder()) == 0) {
 
-			this.monedaTipoTipoFinder.generarListFinder();
-			BindUtils.postNotifyChange(null, null, this.monedaTipoTipoFinder, "listFinder");
+			this.monedaTipoFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.monedaTipoFinder, "listFinder");
 
 			return;
 		}
@@ -126,10 +126,10 @@ public class FacturacionVM extends TemplateViewModelLocal{
 			return;
 		}
 		
-		if (finder.compareTo(this.monedaTipoTipoFinder.getNameFinder()) == 0) {
+		if (finder.compareTo(this.monedaTipoFinder.getNameFinder()) == 0) {
 
-			this.monedaTipoTipoFinder.setListFinder(this.filtrarListaObject(filter, this.monedaTipoTipoFinder.getListFinderOri()));
-			BindUtils.postNotifyChange(null, null, this.monedaTipoTipoFinder, "listFinder");
+			this.monedaTipoFinder.setListFinder(this.filtrarListaObject(filter, this.monedaTipoFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.monedaTipoFinder, "listFinder");
 
 			return;
 		}
@@ -161,7 +161,7 @@ public class FacturacionVM extends TemplateViewModelLocal{
 			return;
 		}
 		
-		if (finder.compareTo(this.monedaTipoTipoFinder.getNameFinder()) == 0) {
+		if (finder.compareTo(this.monedaTipoFinder.getNameFinder()) == 0) {
 
 			this.ventaSelected.setMonedaTipo(this.reg.getObjectById(Tipo.class.getName(), id));
 			return;
@@ -220,12 +220,20 @@ public class FacturacionVM extends TemplateViewModelLocal{
 		this.condicionVentaTipoFinder = condicionVentaTipoFinder;
 	}
 
-	public FinderModel getMonedaTipoTipoFinder() {
-		return monedaTipoTipoFinder;
+	public FinderModel getMonedaTipoFinder() {
+		return monedaTipoFinder;
 	}
 
-	public void setMonedaTipoTipoFinder(FinderModel monedaTipoTipoFinder) {
-		this.monedaTipoTipoFinder = monedaTipoTipoFinder;
+	public void setMonedaTipoFinder(FinderModel monedaTipoFinder) {
+		this.monedaTipoFinder = monedaTipoFinder;
+	}
+
+	public FinderModel getPersonaFinder() {
+		return personaFinder;
+	}
+
+	public void setPersonaFinder(FinderModel personaFinder) {
+		this.personaFinder = personaFinder;
 	}
 	
 	

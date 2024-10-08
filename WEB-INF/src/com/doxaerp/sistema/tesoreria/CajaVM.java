@@ -1,7 +1,9 @@
 package com.doxaerp.sistema.tesoreria;
 
+import java.util.Date;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -12,9 +14,13 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Notification;
 import org.zkoss.zul.Window;
 
+import com.doxacore.components.finder.FinderModel;
+import com.doxacore.modelo.Usuario;
 import com.doxaerp.modelo.Caja;
+import com.doxaerp.modelo.SucursalUsuario;
 import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
+import com.ibm.icu.text.SimpleDateFormat;
 
 
 
@@ -82,6 +88,28 @@ public class CajaVM extends TemplateViewModelLocal{
 
 	}
 	
+	public boolean existeCajaAbierta() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		SucursalUsuario su = this.getCurrentSucursalUsuario();
+		
+		Caja caja =  this.reg.getObjectByCondicion(Caja.class,
+						"empresa.empresaid = " + su.getEmpresa().getEmpresaid() + "\n"  
+						+"and sucursal.sucursalid = "+su.getSucursal().getSucursalid() +"\n"
+						+"and usuarioCaja.usuarioid = "+su.getUsuario().getUsuarioid() +"\n"
+						+ "and fechaCierre is null");
+		
+		if (caja == null) {
+			
+			return false;
+			
+		}
+		
+		return true;
+		
+	}
+	
 	//seccion modal
 	
 	private Window modal;
@@ -99,8 +127,16 @@ public class CajaVM extends TemplateViewModelLocal{
 
 	@Command
 	public void modalCaja(@BindingParam("cajaid") long cajaid) {
+		
+		if (this.existeCajaAbierta()) {
+			
+			this.mensajeInfo("El usuario tiene caja abierta, cierre la caja para crear otra.");
+			
+			return;
+			
+		}
 
-	
+		this.inicializarFinders();
 
 		if (cajaid != -1) {
 
@@ -115,10 +151,17 @@ public class CajaVM extends TemplateViewModelLocal{
 
 			this.cajaSelected = new Caja();
 			
+			SucursalUsuario su = this.getCurrentSucursalUsuario();
+			
+			this.cajaSelected.setEmpresa(su.getEmpresa());
+			this.cajaSelected.setSucursal(su.getSucursal());
+			this.cajaSelected.setUsuarioCaja(su.getUsuario());
+			this.cajaSelected.setFechaApertura(new Date());
+			
 
 		}
 
-		modal = (Window) Executions.createComponents("/sistema/zul/abm/cajaModal.zul", this.mainComponent, null);
+		modal = (Window) Executions.createComponents("/sistema/zul/tesoreria/cajaModal.zul", this.mainComponent, null);
 		Selectors.wireComponents(modal, this, false);
 		modal.doModal();
 
@@ -146,6 +189,109 @@ public class CajaVM extends TemplateViewModelLocal{
 		}
 
 	}
+	
+	@Command
+	public void modalCerrar(@BindingParam("cajaid") long cajaid) {
+
+		this.cajaSelected = this.reg.getObjectById(Caja.class.getName(), cajaid);
+
+		if (this.cajaSelected.getFechaCierre() != null) {
+
+			this.mensajeInfo("La caja ya esta cerrada.");
+			return;
+
+		}
+
+		modal = (Window) Executions.createComponents("/sistema/zul/tesoreria/cerrarCajaModal.zul", this.mainComponent,
+				null);
+		Selectors.wireComponents(modal, this, false);
+		modal.doModal();
+	}
+
+	@Command
+	@NotifyChange("*")
+	public void cerrarCaja() {
+
+		if (!this.opCrearCaja) {
+
+			this.mensajeInfo("No tienes privilegios para cerrar la caja");
+			return;
+		}
+
+		if (this.cajaSelected.getFechaCierre() != null) {
+
+			this.mensajeInfo("La caja ya esta cerrada.");
+			return;
+
+		}
+
+		this.cajaSelected.setFechaCierre(new Date());
+		this.cajaSelected.setUsuarioCierre(this.getCurrentUser());
+
+		this.save(this.cajaSelected);
+
+		this.cargarCajas();
+
+		this.modal.detach();
+
+	}
+	
+	private FinderModel usuarioFinder;
+
+	@NotifyChange("*")
+	public void inicializarFinders() {
+
+		SucursalUsuario su = this.getCurrentSucursalUsuario();
+		
+		String sqlUsuario = this.um.getSql("sucursalUsuario/buscarUsuarioPorSucursal.sql")
+				.replace("?1", su.getEmpresa().getEmpresaid()+"" )
+				.replace("?2", su.getSucursal().getSucursalid()+"");
+		usuarioFinder = new FinderModel("Usuario", sqlUsuario);
+		
+		
+	}
+
+	public void generarFinders(@BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.usuarioFinder.getNameFinder()) == 0) {
+
+			this.usuarioFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.usuarioFinder, "listFinder");
+
+			return;
+		}
+		
+
+	}
+
+	@Command
+	public void finderFilter(@BindingParam("filter") String filter, @BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.usuarioFinder.getNameFinder()) == 0) {
+
+			this.usuarioFinder.setListFinder(this.filtrarListaObject(filter, this.usuarioFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.usuarioFinder, "listFinder");
+
+			return;
+		}
+	
+	}
+
+	@Command
+	@NotifyChange({"usuarioSelected"})
+	public void onSelectetItemFinder(@BindingParam("id") Long id, @BindingParam("finder") String finder) {
+
+		if (finder.compareTo(this.usuarioFinder.getNameFinder()) == 0) {
+
+			this.cajaSelected.setUsuarioCaja(this.reg.getObjectById(Usuario.class.getName(), id));
+			return;
+			
+		}
+
+
+	}
+	
+	
 
 	public List<Object[]> getlCajas() {
 		return lCajas;
@@ -201,6 +347,14 @@ public class CajaVM extends TemplateViewModelLocal{
 
 	public void setFiltroColumns(String[] filtroColumns) {
 		this.filtroColumns = filtroColumns;
+	}
+
+	public FinderModel getUsuarioFinder() {
+		return usuarioFinder;
+	}
+
+	public void setUsuarioFinder(FinderModel usuarioFinder) {
+		this.usuarioFinder = usuarioFinder;
 	}
 	
 	

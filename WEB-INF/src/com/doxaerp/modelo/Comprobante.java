@@ -31,11 +31,10 @@ public class Comprobante extends ModeloERP implements Serializable {
 	private Tipo comprobanteTipo;
 	
 	private Long timbrado;
-	private boolean electronico;
 	private Date emision;
 	private Date vencimiento;
 	
-	private boolean activo;
+	private boolean activo = false;
 	
 	@ManyToOne
 	@JoinColumn(name = "sucursalid", nullable = false)
@@ -44,9 +43,7 @@ public class Comprobante extends ModeloERP implements Serializable {
 	
 	private long inicio;
 	private long fin;
-	private long siguente;
-	
-	
+	private long siguiente;
 	
 	public Long getComprobanteid() {
 		return comprobanteid;
@@ -62,14 +59,6 @@ public class Comprobante extends ModeloERP implements Serializable {
 
 	public void setTimbrado(Long timbrado) {
 		this.timbrado = timbrado;
-	}
-
-	public boolean isElectronico() {
-		return electronico;
-	}
-
-	public void setElectronico(boolean electronico) {
-		this.electronico = electronico;
 	}
 
 	public Date getEmision() {
@@ -104,12 +93,14 @@ public class Comprobante extends ModeloERP implements Serializable {
 		this.fin = fin;
 	}
 
-	public long getSiguente() {
-		return siguente;
+	
+
+	public long getSiguiente() {
+		return siguiente;
 	}
 
-	public void setSiguente(long siguente) {
-		this.siguente = siguente;
+	public void setSiguiente(long siguiente) {
+		this.siguiente = siguiente;
 	}
 
 	public boolean isActivo() {
@@ -135,8 +126,6 @@ public class Comprobante extends ModeloERP implements Serializable {
 	public void setComprobanteTipo(Tipo comprobanteTipo) {
 		this.comprobanteTipo = comprobanteTipo;
 	}
-
-	
 
 	public Sucursal getSucursal() {
 		return sucursal;
