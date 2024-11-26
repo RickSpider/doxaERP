@@ -13,12 +13,16 @@
 	<nav label="ABM" iconSclass="z-icon-pencil "
 		children="@load(vm.pageMap[self.label].values()) @template('navitem')"
 		visible="@load(vm.menuVisible( vm.pageMap[self.label].values().size() ))" />
-		
+	
 	<nav label="Administración" iconSclass="z-icon-briefcase "
 		children="@load(vm.pageMap[self.label].values()) @template('navitem')"
 		visible="@load(vm.menuVisible( vm.pageMap[self.label].values().size() ))" />
 		
 	<nav label="Tesorería" iconSclass="z-icon-money "
+		children="@load(vm.pageMap[self.label].values()) @template('navitem')"
+		visible="@load(vm.menuVisible( vm.pageMap[self.label].values().size() ))" />
+		
+	<nav label="Gestion" iconSclass="z-icon-desktop "
 		children="@load(vm.pageMap[self.label].values()) @template('navitem')"
 		visible="@load(vm.menuVisible( vm.pageMap[self.label].values().size() ))" />
 

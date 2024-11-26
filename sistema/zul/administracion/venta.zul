@@ -1,0 +1,211 @@
+<?page title="Ventas" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Venta" border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.administracion.VentaVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<hlayout vflex="1">
+
+			<vlayout hflex="1" vflex="1">
+			
+				<hbox pack="start">
+
+						<tablelayout columns="5">
+							<tablechildren>
+								<label value="Desde:" />
+							</tablechildren>
+							<tablechildren>
+								<datebox value="@bind(vm.fechaDesde)" format="dd/MM/yyyy HH:mm:ss"
+									onChange="@command('onChangeFiltroFechas')" width="150px"/>
+							</tablechildren>
+
+							<tablechildren>
+								<label value="Hasta:" />
+							</tablechildren>
+							<tablechildren>
+								<datebox value="@bind(vm.fechaHasta)" format="dd/MM/yyyy HH:mm:ss"
+									onChange="@command('onChangeFiltroFechas')" width="150px"/>
+							</tablechildren>
+							
+							<tablechildren>
+								<toolbarbutton image="/doxacore/img/icoExcel22x20.png" tooltiptext="Exportar a Excel"
+								onClick="@command('exportarExcel')" />								
+												
+							</tablechildren>
+							
+						</tablelayout>
+						
+							
+				</hbox>
+
+				<hbox pack="end" hflex="1">
+
+					<!-- <button label="Agregar" iconSclass=" z-icon-plus"
+						onClick="@command('modalVentaAgregar')"
+						disabled="@load(!vm.opCrearVenta)" />  -->
+
+				</hbox>
+
+				<listbox emptyMessage="lista vacía..." mold="paging" autopaging="true"
+					vflex="1" model="@load(vm.lVentas)" checkmark="true">
+
+					
+
+					<listhead >
+
+						<listheader hflex="min" align="center" />
+						<listheader label="FECHA" align="center"
+							hflex="min" />
+						<listheader label="TIPO DOCUMENTO" align="center" hflex="min" />
+						<listheader label="DOCUMENTO #" align="center" hflex="min" />
+						<listheader label="RAZONSOCIAL" align="center" />
+						<listheader label="TIMBRADO" align="center" hflex="min"/>
+						<listheader label="COMPROBANTE" align="center" hflex="min"/>
+						<listheader label="NUMERO" align="center" hflex="min"/>
+						
+						<listheader label="CONDICION" align="center" hflex="min"/>
+						<listheader label="MONEDA" align="center" hflex="min"/>
+						
+						<listheader label="TOTAL" align="center"  hflex="min"/>
+					
+
+
+					</listhead>
+					
+
+
+					<auxhead>
+
+						<auxheader />
+						<auxheader > 
+							<textbox value="@bind(vm.filtroColumns[0])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[1])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>
+
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[2])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[3])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[4])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[5])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>		
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[6])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>	
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[7])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>	
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[8])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>	
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[9])"
+								instant="true" onChange="@command('filtrarVenta')"
+								hflex="1" />
+						</auxheader>		
+						
+						
+
+					</auxhead>
+
+					<template name="model">
+
+						<listitem>
+							<listcell />
+							<listcell label="@load(each[0])" />
+							<listcell label="@load(each[1])" />
+							<listcell label="@load(each[2])" />
+							<listcell label="@load(each[3])" style="text-align: left;"/>
+							<listcell label="@load(each[4])" />
+							<listcell label="@load(each[5])" />
+							<listcell label="@load(each[6])" />
+							<listcell label="@load(each[7])" />
+							<listcell label="@load(each[8])" />
+							<listcell >
+							
+								<doublebox value = "@load(each[9])" style="text-align: right;" format="#,###" readonly="true"/>
+							
+							</listcell>
+						
+							
+							
+
+
+							<!-- <listcell>
+								<hlayout>
+																		
+									<button iconSclass="z-icon-edit"
+										onClick="@command('modalVenta', ventaid=each[0])"
+										tooltiptext="Editar"
+										disabled="@load(!vm.opEditarVenta)" />
+									<button iconSclass="z-icon-trash-o"
+										class="doxa-button-red"
+										onClick="@command('borrarVentaConfirmacion', ventaid=each[0])"
+										tooltiptext="Borrar"
+										disabled="@load(!vm.opBorrarVenta)" />
+
+
+								</hlayout>
+
+
+							</listcell> -->
+
+
+						</listitem>
+
+
+					</template>
+
+					<listfoot>
+						<listfooter span="4" align="left">
+							<hlayout>
+								<label
+									value="@load(vm.lVentas.size())" />
+								<label value="items" />
+							</hlayout>
+						</listfooter>
+					</listfoot>
+
+
+				</listbox>
+
+			</vlayout>
+
+
+
+		</hlayout>
+
+	</window>
+</zk>

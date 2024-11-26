@@ -3,6 +3,7 @@
 <mapping class="com.doxaerp.modelo.EmpresaUsuario" />
 <mapping class="com.doxaerp.modelo.SucursalUsuario" />
 <mapping class="com.doxaerp.modelo.Persona" />
+<mapping class="com.doxaerp.modelo.Marca" />
 <mapping class="com.doxaerp.modelo.Producto" />
 <mapping class="com.doxaerp.modelo.Sucursal" />
 <mapping class="com.doxaerp.modelo.Deposito" />
@@ -11,3 +12,8 @@
 <mapping class="com.doxaerp.modelo.ProductoDeposito" />
 <mapping class="com.doxaerp.modelo.Ajuste" />
 <mapping class="com.doxaerp.modelo.AjusteDetalle" />
+<mapping class="com.doxaerp.modelo.Venta"/>
+<mapping class="com.doxaerp.modelo.VentaDetalle"/>
+<mapping class="com.doxaerp.modelo.VentaPago"/>
+<mapping class="com.doxaerp.modelo.Suscripcion"/>
+<mapping class="com.doxaerp.modelo.Agendamiento"/>

@@ -16,6 +16,7 @@ import org.zkoss.zul.Window;
 import com.doxacore.components.finder.FinderModel;
 import com.doxacore.modelo.Tipo;
 import com.doxacore.modelo.Usuario;
+import com.doxaerp.modelo.Deposito;
 import com.doxaerp.modelo.Sucursal;
 import com.doxaerp.modelo.SucursalUsuario;
 import com.doxaerp.util.ParamsLocal;
@@ -28,6 +29,7 @@ public class SucursalVM extends TemplateViewModelLocal{
 	private List<Object[]> lSucursales;
 	private List<Object[]> lSucursalesOri;
 	private Sucursal sucursalSelected;
+	private Usuario usuarioSelected;
 	
 	private boolean opCrearSucursal;
 	private boolean opEditarSucursal;
@@ -104,7 +106,7 @@ public class SucursalVM extends TemplateViewModelLocal{
 	@Command
 	public void modalSucursal(@BindingParam("sucursalid") long sucursalid) {
 		
-		this.inicializarFinders();
+	
 		this.usuarioSelected = null;
 
 		if (sucursalid != -1) {
@@ -119,13 +121,15 @@ public class SucursalVM extends TemplateViewModelLocal{
 		} else {
 
 			this.sucursalSelected = new Sucursal();
-			this.sucursalSelected.setEmpresa(getCurrentEmpresa());
+			//this.sucursalSelected.setEmpresa(getCurrentEmpresa());
 
 		}
 
 		modal = (Window) Executions.createComponents("/sistema/zul/empresa/sucursalModal.zul", this.mainComponent, null);
 		Selectors.wireComponents(modal, this, false);
 		modal.doModal();
+		
+		this.inicializarFinders();
 
 	}
 	
@@ -156,19 +160,32 @@ public class SucursalVM extends TemplateViewModelLocal{
 	
 	
 	private FinderModel empresaUsuarioFinder;
-	private Usuario usuarioSelected;
+	private FinderModel comprobanteTipoFinder;
 
 	@NotifyChange("*")
 	public void inicializarFinders() {
+		
+		String buscarTiposPorSiglaTipotipo = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql");
+
+		String sqlComprobanteTipo = buscarTiposPorSiglaTipotipo.replace("?1", ParamsLocal.SIGLA_TIPOTIPO_COMPROBANTE );
+		comprobanteTipoFinder = new FinderModel("Comprobante", sqlComprobanteTipo);
 
 		String sqlUsuario = this.um.getSql("empresaUsuario/buscarEmpresaUsuario.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"" );
 		empresaUsuarioFinder = new FinderModel("Usuario", sqlUsuario);
-		
 		
 	}
 
 	public void generarFinders(@BindingParam("finder") String finder) {
 
+		
+		if (finder.compareTo(this.comprobanteTipoFinder.getNameFinder()) == 0) {
+
+			this.comprobanteTipoFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.comprobanteTipoFinder, "listFinder");
+
+			return;
+		}
+		
 		if (finder.compareTo(this.empresaUsuarioFinder.getNameFinder()) == 0) {
 
 			this.empresaUsuarioFinder.generarListFinder();
@@ -177,12 +194,22 @@ public class SucursalVM extends TemplateViewModelLocal{
 			return;
 		}
 		
+		
+		
 
 	}
 
 	@Command
 	public void finderFilter(@BindingParam("filter") String filter, @BindingParam("finder") String finder) {
 
+		if (finder.compareTo(this.comprobanteTipoFinder.getNameFinder()) == 0) {
+
+			this.comprobanteTipoFinder.setListFinder(this.filtrarListaObject(filter, this.comprobanteTipoFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.comprobanteTipoFinder, "listFinder");
+
+			return;
+		}
+		
 		if (finder.compareTo(this.empresaUsuarioFinder.getNameFinder()) == 0) {
 
 			this.empresaUsuarioFinder.setListFinder(this.filtrarListaObject(filter, this.empresaUsuarioFinder.getListFinderOri()));
@@ -190,21 +217,26 @@ public class SucursalVM extends TemplateViewModelLocal{
 
 			return;
 		}
-		
 	
 	}
 
 	@Command
-	@NotifyChange({"usuarioSelected"})
+	@NotifyChange({"*"})
 	public void onSelectetItemFinder(@BindingParam("id") Long id, @BindingParam("finder") String finder) {
 
+		if (finder.compareTo(this.comprobanteTipoFinder.getNameFinder()) == 0) {
+
+			this.sucursalSelected.setComprobanteTipo(this.reg.getObjectById(Tipo.class.getName(), id));
+			return;
+			
+		}
+		
 		if (finder.compareTo(this.empresaUsuarioFinder.getNameFinder()) == 0) {
 
 			this.usuarioSelected = this.reg.getObjectById(Usuario.class.getName(), id);
 			return;
 			
 		}
-
 
 	}
 	
@@ -298,6 +330,14 @@ public class SucursalVM extends TemplateViewModelLocal{
 
 	public FinderModel getEmpresaUsuarioFinder() {
 		return empresaUsuarioFinder;
+	}
+
+	public FinderModel getComprobanteTipoFinder() {
+		return comprobanteTipoFinder;
+	}
+
+	public void setComprobanteTipoFinder(FinderModel comprobanteTipoFinder) {
+		this.comprobanteTipoFinder = comprobanteTipoFinder;
 	}
 	
 	

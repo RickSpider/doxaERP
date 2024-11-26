@@ -16,9 +16,10 @@
 			</tablechildren>
 
 			<tablechildren>
-				<textbox value="@load(vm.servicioSelected.productoid)" readonly="true" />
+				<textbox value="@load(vm.servicioSelected.productoid)"
+					readonly="true" />
 			</tablechildren>
-			
+
 			<tablechildren>
 				<label value="Nombre:" style="font-weight:bold" />
 			</tablechildren>
@@ -26,41 +27,48 @@
 			<tablechildren>
 				<textbox value="@bind(vm.servicioSelected.nombre)" />
 			</tablechildren>
-			
+
 			<tablechildren>
 				<label value="Moneda Venta:" style="font-weight:bold" />
 			</tablechildren>
-				
+
 			<tablechildren>
-				<finder	finderValue="@load(vm.servicioSelected.monedaVentaTipo.tipo)"
-								finderModel="@init(vm.monedaTipoFinder)" />
-			</tablechildren>			
-				
+				<finder
+					finderValue="@load(vm.servicioSelected.monedaVentaTipo.tipo)"
+					finderModel="@init(vm.monedaTipoFinder)" />
+			</tablechildren>
+
 			<tablechildren>
 				<label value="Precio Venta:" style="font-weight:bold" />
 			</tablechildren>
 
 			<tablechildren>
-				<doublebox value="@bind(vm.servicioSelected.precioVenta)" style="text-align:right" format="#,###.##"/>
-			</tablechildren>
-			
-			<tablechildren>
-				<label value="Precio Compra:" style="font-weight:bold" />
+				<doublebox
+					value="@bind(vm.servicioSelected.precioVenta)"
+					style="text-align:right" format="#,###.##" />
 			</tablechildren>
 
 			<tablechildren>
-				<doublebox value="@bind(vm.servicioSelected.precioCompra)" format="#,###.##"/>
-			</tablechildren>
-			
-			<tablechildren>
 				<label value="IVA Tipo:" style="font-weight:bold" />
 			</tablechildren>
-				
+
 			<tablechildren>
-				<finder	finderValue="@load(vm.servicioSelected.ivaTipo.tipo)"
-								finderModel="@init(vm.ivaTipoFinder)" />
-			</tablechildren>			
-			
+				<finder
+					finderValue="@load(vm.servicioSelected.ivaTipo.tipo)"
+					finderModel="@init(vm.ivaTipoFinder)" />
+			</tablechildren>
+
+			<tablechildren>
+				<label value="Unidad de Medida:"
+					style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<finder
+					finderValue="@load(vm.servicioSelected.unidadMedidaTipo.tipo)"
+					finderModel="@init(vm.unidadMedidaTipoFinder)" />
+			</tablechildren>
+
 		</tablelayout>
 
 		<space height="10px" />

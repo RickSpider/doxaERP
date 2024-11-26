@@ -16,6 +16,7 @@ import org.zkoss.zul.Window;
 import com.doxacore.components.finder.FinderModel;
 import com.doxacore.login.UsuarioCredencial;
 import com.doxacore.modelo.Usuario;
+import com.doxacore.util.Register;
 import com.doxaerp.modelo.EmpresaUsuario;
 import com.doxaerp.util.TemplateMenuPopup;
 
@@ -94,12 +95,22 @@ public class CambiarEmpresaModalVM extends TemplateMenuPopup {
 	@Command
 	public void guardar() {
 		
+		
 		EmpresaUsuario euOld = getCurrentEmpresaUsuario();
-		euOld.setActual(false);
-		this.reg.saveObject(euOld, euOld.getUsuario().getAccount());
+		if (euOld != null) {
+			
+			euOld.setActual(false);
+			this.reg.saveObject(euOld, euOld.getUsuario().getAccount());
+			
+		}		
 		
 		this.empresaUsuarioSelected.setActual(true);
 		this.reg.saveObject(empresaUsuarioSelected, empresaUsuarioSelected.getUsuario().getAccount());
+		
+		UsuarioCredencial usuarioCredencial = (UsuarioCredencial) Sessions.getCurrent().getAttribute("userCredential");
+		
+		usuarioCredencial.setExtra(this.empresaUsuarioSelected.getEmpresa().getRazonSocial());
+		Sessions.getCurrent().setAttribute("userCredential", usuarioCredencial);
 		
 		this.windowModal.detach();
 		Clients.evalJavaScript("window.location.reload();");

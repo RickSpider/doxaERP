@@ -12,6 +12,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Notification;
 import org.zkoss.zul.Window;
 
+import com.doxacore.modelo.Tipo;
 import com.doxaerp.modelo.Deposito;
 import com.doxaerp.modelo.Empresa;
 import com.doxaerp.modelo.EmpresaUsuario;
@@ -150,6 +151,7 @@ public class EmpresaVM extends TemplateViewModelLocal{
 			s.setEmpresa(this.empresaSelected);
 			s.setNombre(this.empresaSelected.getRazonSocial()+" Matriz");
 			s.setEstablecimiento("001");
+			s.setComprobanteTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_COMPROBANTE_FACTURA));
 		
 			s = this.save(s);
 			

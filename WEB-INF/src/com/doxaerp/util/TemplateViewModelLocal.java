@@ -4,8 +4,10 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Init;
 
 import com.doxacore.TemplateViewModel;
+import com.doxacore.modelo.Modelo;
 import com.doxaerp.modelo.Empresa;
 import com.doxaerp.modelo.EmpresaUsuario;
+import com.doxaerp.modelo.ModeloERP;
 import com.doxaerp.modelo.SucursalUsuario;
 import com.doxaerp.modelo.Sucursal;
 
@@ -51,6 +53,18 @@ public abstract class TemplateViewModelLocal extends TemplateViewModel{
 	protected Sucursal getCurrentSucursal() {
 		
 		return this.getCurrentSucursalUsuario().getSucursal();
+	}
+	
+	protected <T extends ModeloERP> T save(T m) {
+		
+		if (m.getEmpresa() == null) {
+			
+			m.setEmpresa(getCurrentEmpresa());
+			
+		}
+
+		return this.reg.saveObject(m, getCurrentUser().getAccount());
+
 	}
 
 }

@@ -127,7 +127,8 @@ public class ServicioVM extends TemplateViewModelLocal{
 			this.servicioSelected.setControlStock(false);
 			this.servicioSelected.setMonedaVentaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_MONEDA_GUARANIES));
 			this.servicioSelected.setIvaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_IVA_10));
-
+			this.servicioSelected.setUnidadMedidaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_UNIDADMEDIDA_UNIDAD));
+			
 		}
 
 		modal = (Window) Executions.createComponents("/sistema/zul/abm/servicioModal.zul", this.mainComponent, null);
@@ -142,8 +143,6 @@ public class ServicioVM extends TemplateViewModelLocal{
 
 		this.servicioSelected = this.save(this.servicioSelected);
 
-		this.cargarServicios();
-
 		this.modal.detach();
 
 		if (editar) {
@@ -156,11 +155,14 @@ public class ServicioVM extends TemplateViewModelLocal{
 
 			Notification.show("Los datos deL Servicio fueron agragados.");
 		}
+		
+		this.cargarServicios();
 
 	}
 	
 	private FinderModel ivaTipoFinder;
 	private FinderModel monedaTipoFinder;
+	private FinderModel unidadMedidaTipoFinder;
 
 	@NotifyChange("*")
 	public void inicializarFinders() {
@@ -170,6 +172,9 @@ public class ServicioVM extends TemplateViewModelLocal{
 		
 		String sqlmonedaTipo = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_TIPOTIPO_MONEDA );
 		monedaTipoFinder = new FinderModel("MONEDA", sqlmonedaTipo);
+		
+		String sqlunidadMedidaTipo = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_TIPOTIPO_UNIDADMEDIDA );
+		unidadMedidaTipoFinder = new FinderModel("UNIDADMEDIDA", sqlunidadMedidaTipo);
 
 	}
 
@@ -188,6 +193,14 @@ public class ServicioVM extends TemplateViewModelLocal{
 
 			this.monedaTipoFinder.generarListFinder();
 			BindUtils.postNotifyChange(null, null, this.monedaTipoFinder, "listFinder");
+
+			return;
+		}
+		
+		if (finder.compareTo(this.unidadMedidaTipoFinder.getNameFinder()) == 0) {
+
+			this.unidadMedidaTipoFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.unidadMedidaTipoFinder, "listFinder");
 
 			return;
 		}
@@ -212,6 +225,14 @@ public class ServicioVM extends TemplateViewModelLocal{
 
 			return;
 		}
+		
+		if (finder.compareTo(this.unidadMedidaTipoFinder.getNameFinder()) == 0) {
+
+			this.unidadMedidaTipoFinder.setListFinder(this.filtrarListaObject(filter, this.monedaTipoFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.unidadMedidaTipoFinder, "listFinder");
+
+			return;
+		}
 
 	}
 
@@ -231,6 +252,13 @@ public class ServicioVM extends TemplateViewModelLocal{
 			this.servicioSelected.setMonedaVentaTipo(this.reg.getObjectById(Tipo.class.getName(), id));
 			return;
 		}
+		
+		if (finder.compareTo(this.monedaTipoFinder.getNameFinder()) == 0) {
+
+			this.servicioSelected.setUnidadMedidaTipo(this.reg.getObjectById(Tipo.class.getName(), id));
+			return;
+		}
+
 
 	}
 	
@@ -305,6 +333,22 @@ public class ServicioVM extends TemplateViewModelLocal{
 
 	public void setMonedaTipoFinder(FinderModel monedaTipoFinder) {
 		this.monedaTipoFinder = monedaTipoFinder;
+	}
+
+	public Tipo getTipoServicio() {
+		return tipoServicio;
+	}
+
+	public void setTipoServicio(Tipo tipoServicio) {
+		this.tipoServicio = tipoServicio;
+	}
+
+	public FinderModel getUnidadMedidaTipoFinder() {
+		return unidadMedidaTipoFinder;
+	}
+
+	public void setUnidadMedidaTipoFinder(FinderModel unidadMedidaTipoFinder) {
+		this.unidadMedidaTipoFinder = unidadMedidaTipoFinder;
 	}
 	
 	

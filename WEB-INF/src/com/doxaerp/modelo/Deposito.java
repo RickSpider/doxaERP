@@ -2,6 +2,8 @@ package com.doxaerp.modelo;
 
 import java.io.Serializable;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +29,9 @@ public class Deposito extends ModeloERP implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "sucursalid", nullable = false)
 	private Sucursal sucursal;
+	
+	@ColumnDefault("false")
+	private boolean facturacion = false;
 
 	@Override
 	public Object[] getArrayObjectDatos() {
@@ -63,6 +68,15 @@ public class Deposito extends ModeloERP implements Serializable{
 	public void setSucursal(Sucursal sucursal) {
 		this.sucursal = sucursal;
 	}
+
+	public boolean isFacturacion() {
+		return facturacion;
+	}
+
+	public void setFacturacion(boolean facturacion) {
+		this.facturacion = facturacion;
+	}
+
 	
 	
 

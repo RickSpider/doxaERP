@@ -1,0 +1,42 @@
+<?page title="suscripcionModal" contentType="text/html;charset=UTF-8"?>
+
+<?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
+
+<zk>
+
+
+	<window title="Lista de Pagos" border="normal"
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp" width="500px" height="500px">
+
+		<listbox emptyMessage="lista vacía..." mold="paging"
+			autopaging="true" vflex="1" model="@load(vm.lPagos)"
+			checkmark="true">
+
+			<listhead>
+
+				<listheader hflex="min" align="center" />
+				<listheader label="FECHA" align="center" hflex="min" />
+				<listheader label="COMPROBANTE" align="center" />
+				<listheader label="NUMERO" align="center" />
+
+
+			</listhead>
+			
+			<template name="model">
+			
+				<listitem>
+				
+					<listcell/>
+					<listcell label="@load(each[0])" />
+					<listcell label="@load(each[1])" />
+					<listcell label="@load(each[2])" />
+				
+				</listitem>	
+			
+			</template>
+
+		</listbox>
+
+	</window>
+</zk>

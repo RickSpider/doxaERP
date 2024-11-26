@@ -37,6 +37,17 @@ public class ParamsLocal extends Params{
 	public static final String SIGLA_TIPO_AJUSTE_POSITIVO = "AJUSTE_POSITIVO";
 	public static final String SIGLA_TIPO_AJUSTE_NEGATIVO = "AJUSTE_NEGATIVO";
 	
+	public static final String SIGLA_TIPOTIPO_UNIDADMEDIDA = "UNIDADMEDIDA";
+	public static final String SIGLA_TIPO_UNIDADMEDIDA_UNIDAD = "UNIDADMEDIDA_UNIDAD";
+	
+	public static final String SIGLA_TIPOTIPO_FORMAPAGO = "FORMAPAGO";
+	public static final String SIGLA_TIPO_FORMAPAGO_EFECTIVO = "FORMAPAGO_EFECTIVO";
+	
+	public static final String SIGLA_TIPOTIPO_SUSCRIPCION = "SUSCRIPCION";
+	public static final String SIGLA_TIPO_SUSCRIPCION_ANUAL = "SUSCRIPCION_ANUAL";
+	public static final String SIGLA_TIPO_SUSCRIPCION_MENSUAL = "SUSCRIPCION_MENSUAL";
+
+	
 	/*
 	 EJEMPLO DE COMO CREAR PARAMETROS 
 	 
@@ -88,6 +99,18 @@ public class ParamsLocal extends Params{
 	public static final String OP_BORRAR_AJUSTE = "BorrarAjuste";
 	
 	public static final String OP_CREAR_FACTURACION = "CrearFacturacion";
+	
+	public static final String OP_CREAR_SUSCRIPCION = "CrearSuscripcion";
+	public static final String OP_EDITAR_SUSCRIPCION = "EditarSuscripcion";
+	public static final String OP_BORRAR_SUSCRIPCION = "BorrarSuscripcion";
+	
+	public static final String OP_CREAR_AGENDAMIENTO = "CrearAgendamiento";
+	public static final String OP_EDITAR_AGENDAMIENTO = "EditarAgendamiento";
+	public static final String OP_BORRAR_AGENDAMIENTO = "BorrarAgendamiento";
+	
+	public static final String OP_CREAR_MARCA = "CrearMarca";
+	public static final String OP_EDITAR_MARCA = "EditarMarca";
+	public static final String OP_BORRAR_MARCA = "BorrarMarca";
 	
 
 	

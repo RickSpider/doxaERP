@@ -103,8 +103,6 @@ public class EmpresaUsuarioVM extends TemplateViewModelLocal{
 	@Command
 	public void modalEmpresaUsuario(@BindingParam("empresaUsuarioid") long empresaUsuarioid) {
 
-	
-
 		if (empresaUsuarioid != -1) {
 
 			if (!this.opEditarEmpresaUsuario)
@@ -119,6 +117,7 @@ public class EmpresaUsuarioVM extends TemplateViewModelLocal{
 			this.empresaUsuarioSelected = new EmpresaUsuario();
 			this.empresaUsuarioSelected.setEmpresa(getCurrentEmpresa());
 			this.empresaUsuarioSelected.setUsuario(new Usuario());
+		
 			
 		}
 
@@ -153,7 +152,7 @@ public class EmpresaUsuarioVM extends TemplateViewModelLocal{
 
 		} else {
 			
-			Rol operador = this.reg.getObjectByColumn(Rol.class, "Rol", ParamsLocal.ROL_OPERADOR );
+			Rol operador = this.reg.getObjectByColumn(Rol.class, "rol", ParamsLocal.ROL_OPERADOR );
 			UsuarioRol ur = new UsuarioRol();
 			ur.setUsuario(this.empresaUsuarioSelected.getUsuario());
 			ur.setRol(operador);

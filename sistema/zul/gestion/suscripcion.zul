@@ -1,0 +1,142 @@
+<?page title="Suscripciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Suscripcion" border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.gestion.SuscripcionVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<hlayout vflex="1">
+
+			<vlayout hflex="1" vflex="1">
+
+				<hbox pack="end" hflex="1">
+
+					<button label="Agregar" iconSclass=" z-icon-plus"
+						onClick="@command('modalSuscripcionAgregar')"
+						disabled="@load(!vm.opCrearSuscripcion)" />
+
+				</hbox>
+
+				<listbox emptyMessage="lista vacía..." mold="paging"
+					autopaging="true" vflex="1" model="@load(vm.lSuscripciones)"
+					checkmark="true">
+
+					<listhead>
+
+						<listheader hflex="min" align="center" />
+						<listheader label="ID" align="center"
+							hflex="min" />
+						<listheader label="PERSONA" align="center" />
+						<listheader label="SERVICIO" align="center" />
+						<listheader label="INICIO" align="center" />
+						<listheader label="VENCIMIENTO" align="center" />
+
+						<listheader align="center"  hflex="min"/>
+
+
+					</listhead>
+
+					<auxhead>
+
+						<auxheader />
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[0])"
+								instant="true" onChange="@command('filtrarSuscripcion')"
+								hflex="1" />
+						</auxheader>
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[1])"
+								instant="true" onChange="@command('filtrarSuscripcion')"
+								hflex="1" />
+						</auxheader>
+
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[2])"
+								instant="true" onChange="@command('filtrarSuscripcion')"
+								hflex="1" />
+						</auxheader>
+
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[3])"
+								instant="true" onChange="@command('filtrarSuscripcion')"
+								hflex="1" />
+						</auxheader>
+
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[4])"
+								instant="true" onChange="@command('filtrarSuscripcion')"
+								hflex="1" />
+						</auxheader>
+
+						<auxheader />
+
+					</auxhead>
+
+					<template name="model">
+
+						<listitem>
+							<listcell />
+							<listcell label="@load(each[0])"
+								style="text-align: right;" />
+							<listcell label="@load(each[1])"
+								style="text-align: left;" />
+							<listcell label="@load(each[2])"
+								style="text-align: left;" />
+							<listcell label="@load(each[3])" />
+							<listcell label="@load(each[4])" />
+
+
+							<listcell>
+								<hlayout>
+								
+									<button iconSclass="z-icon-money"
+										class="doxa-button-green"
+										onClick="@command('SuscripcionPagarModal', suscripcionid=each[0])"
+										tooltiptext="Pagar"
+										/>
+									<button iconSclass="z-icon-list"
+										class="doxa-button-orange"
+										onClick="@command('modalListaPagos', suscripcionid=each[0])"
+										tooltiptext="Ver Pagos"
+										/>
+									<button iconSclass="z-icon-edit"
+										onClick="@command('modalSuscripcion', suscripcionid=each[0])"
+										tooltiptext="Editar"
+										disabled="@load(!vm.opEditarSuscripcion)" />
+									<button iconSclass="z-icon-trash-o"
+										class="doxa-button-red"
+										onClick="@command('borrarSuscripcionConfirmacion', suscripcionid=each[0])"
+										tooltiptext="Borrar"
+										disabled="@load(!vm.opBorrarSuscripcion)" />
+
+								</hlayout>
+
+
+							</listcell>
+
+
+						</listitem>
+
+
+					</template>
+
+					<listfoot>
+						<listfooter span="5" align="left">
+							<hlayout>
+								<label
+									value="@load(vm.lSuscripciones.size())" />
+								<label value="items" />
+							</hlayout>
+						</listfooter>
+					</listfoot>
+
+
+				</listbox>
+
+			</vlayout>
+
+
+
+		</hlayout>
+
+	</window>
+</zk>

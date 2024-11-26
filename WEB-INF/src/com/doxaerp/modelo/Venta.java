@@ -34,10 +34,15 @@ public class Venta extends ModeloERP implements Serializable {
 	private Long ventaid;
 	
 	@ManyToOne
+	@JoinColumn(name = "sucursalid", nullable = false, updatable = false)
+	private Sucursal sucursal;
+	
+	@ManyToOne
 	@JoinColumn(name = "cajaid", nullable = false)
 	private Caja caja;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
 	private Date fecha;
 	
 	@ManyToOne
@@ -52,16 +57,23 @@ public class Venta extends ModeloERP implements Serializable {
 	@JoinColumn(name = "condicionventatipoid", nullable = false)
 	private Tipo condicionVentaTipo;	
 	
+	
+
 	private String comprobanteNum;
+
 	private Long timbrado;
 
 	@Temporal(TemporalType.DATE)
-	private Date timbradoIncio;
+	private Date timbradoEmision;
 
 	@Temporal(TemporalType.DATE)
-	private Date timbradoFin;	
+	private Date timbradoVencimiento;	
 	
-	private String RazonSocial;
+	
+	@ManyToOne
+	@JoinColumn(name = "personatocumentotipoid", nullable = false)
+	private Tipo personaDocumentoTipo;
+	private String razonSocial;
 	private String personaDocumento;
 	private String direccion;
 	
@@ -72,17 +84,21 @@ public class Venta extends ModeloERP implements Serializable {
 	@JoinColumn(name = "monedatipoid", nullable = false)
 	private Tipo monedaTipo;
 	
-	private double monedaCambio;
+	private double monedaCambio = 1;
 	
 	private double total10;
 	private double total5;
-	private double totalExcento;
+	private double totalExento;
 	
 	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<VentaDetalle> detalles = new ArrayList<VentaDetalle>();
 	
-	@Temporal(TemporalType.DATE)
+	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VentaPago> pagos = new ArrayList<VentaPago>();
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAnulacion;
+	
 	private	String anulacionUser;
 	private boolean anulado = false;
 	
@@ -105,12 +121,12 @@ public class Venta extends ModeloERP implements Serializable {
 		this.total5 = total5;
 	}
 
-	public double getTotalExcento() {
-		return totalExcento;
+	public double getTotalExento() {
+		return totalExento;
 	}
 
-	public void setTotalExcento(double totalExcento) {
-		this.totalExcento = totalExcento;
+	public void setTotalExento(double totalExento) {
+		this.totalExento = totalExento;
 	}
 
 	public Date getFechaAnulacion() {
@@ -205,28 +221,29 @@ public class Venta extends ModeloERP implements Serializable {
 		this.timbrado = timbrado;
 	}
 
-	public Date getTimbradoIncio() {
-		return timbradoIncio;
+	
+	public Date getTimbradoEmision() {
+		return timbradoEmision;
 	}
 
-	public void setTimbradoIncio(Date timbradoIncio) {
-		this.timbradoIncio = timbradoIncio;
+	public void setTimbradoEmision(Date timbradoEmision) {
+		this.timbradoEmision = timbradoEmision;
 	}
 
-	public Date getTimbradoFin() {
-		return timbradoFin;
+	public Date getTimbradoVencimiento() {
+		return timbradoVencimiento;
 	}
 
-	public void setTimbradoFin(Date timbradoFin) {
-		this.timbradoFin = timbradoFin;
+	public void setTimbradoVencimiento(Date timbradoVencimiento) {
+		this.timbradoVencimiento = timbradoVencimiento;
 	}
 
 	public String getRazonSocial() {
-		return RazonSocial;
+		return razonSocial;
 	}
 
 	public void setRazonSocial(String razonSocial) {
-		RazonSocial = razonSocial;
+		this.razonSocial = razonSocial;
 	}
 
 	public String getPersonaDocumento() {
@@ -293,6 +310,14 @@ public class Venta extends ModeloERP implements Serializable {
 		this.motivoAnulacion = motivoAnulacion;
 	}
 
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+
 	public List<VentaDetalle> getDetalles() {
 		return detalles;
 	}
@@ -301,4 +326,23 @@ public class Venta extends ModeloERP implements Serializable {
 		this.detalles = detalles;
 	}
 
+	public List<VentaPago> getPagos() {
+		return pagos;
+	}
+
+	public void setPagos(List<VentaPago> pagos) {
+		this.pagos = pagos;
+	}
+
+	public Tipo getPersonaDocumentoTipo() {
+		return personaDocumentoTipo;
+	}
+
+	public void setPersonaDocumentoTipo(Tipo personaDocumentoTipo) {
+		this.personaDocumentoTipo = personaDocumentoTipo;
+	}
+	
+	
+
+	
 }

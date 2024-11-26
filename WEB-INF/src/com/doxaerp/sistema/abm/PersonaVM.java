@@ -118,7 +118,7 @@ public class PersonaVM extends TemplateViewModelLocal{
 		} else {
 
 			this.personaSelected = new Persona();
-			this.personaSelected.setEmpresa(getCurrentEmpresa());
+			//this.personaSelected.setEmpresa(getCurrentEmpresa());
 			
 		}
 		

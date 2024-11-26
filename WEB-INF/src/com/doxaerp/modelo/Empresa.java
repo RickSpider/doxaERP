@@ -31,6 +31,8 @@ public class Empresa extends Modelo implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String ruc;
 	
+	private String logopath;
+	
 	@Override
 	public Object[] getArrayObjectDatos() {
 		// TODO Auto-generated method stub
@@ -65,6 +67,14 @@ public class Empresa extends Modelo implements Serializable {
 
 	public void setRuc(String ruc) {
 		this.ruc = ruc;
+	}
+
+	public String getLogopath() {
+		return logopath;
+	}
+
+	public void setLogopath(String logopath) {
+		this.logopath = logopath;
 	}
 
 	

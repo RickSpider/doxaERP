@@ -24,7 +24,7 @@
 			</tablechildren>
 
 			<tablechildren>
-				<datebox value="@bind(vm.ajusteSelected.fecha)" format="dd/MM/yyyy HH:mm:ss"/>	
+				<datebox value="@bind(vm.ajusteSelected.fecha)" format="dd/MM/yyyy HH:mm:ss" width="150px"/>	
 			</tablechildren>
 			
 			<tablechildren>
@@ -99,10 +99,10 @@
 				<listitem>
 				
 					<listcell/>
-					<listcell label="@load(each.producto.nombre)" />
-					<listcell  >
+					<listcell label="@load(each.producto.nombre)" style="text-align:left"/>
+					<listcell>
 					
-						<doublebox value="@bind(each.cantidad)" /> 
+						<doublebox value="@bind(each.cantidad)" style="text-align:right"/> 
 					
 					</listcell>
 					<listcell>

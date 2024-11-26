@@ -45,78 +45,161 @@
 			<tablechildren>
 				<textbox value="@bind(vm.sucursalSelected.direccion)" />
 			</tablechildren>
+			
+			<tablechildren>
+					<label value="Comprobante Predet.:"
+						style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.sucursalSelected.comprobanteTipo.tipo)"
+						finderModel="@init(vm.comprobanteTipoFinder)" />
+				</tablechildren>
+
 
 		</tablelayout>
 
 		<space height="10px" />
 
-		<listbox emptyMessage="lista vacía..." mold="paging"
-			autopaging="true" vflex="1"
-			model="@load(vm.sucursalSelected.usuarios)" checkmark="true">
+		<tabbox width="100%" sclass="nav_tabs">
+			<tabs id="tabs">
+				<tab label="Usuarios" />
+				<tab label="Depositos" />
 
-			<auxhead>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
 
-				<auxheader colspan="6">
+					<listbox emptyMessage="lista vacía..." mold="paging"
+						autopaging="true"
+						model="@load(vm.sucursalSelected.usuarios)" checkmark="true" height="200px">
 
-					<hbox>
+						<auxhead>
 
-						<finder
-							finderValue="@load(vm.usuarioSelected.account)"
-							finderModel="@init(vm.empresaUsuarioFinder)" />
-						<textbox
-							value="@load(vm.usuarioSelected.fullName)" readonly="true" width="200px" />
-						<button iconSclass="z-icon-plus" onClick="@command('agregarUsuario')"/>
+							<auxheader colspan="6">
 
-					</hbox>
+								<hbox>
 
+									<finder
+										finderValue="@load(vm.usuarioSelected.account)"
+										finderModel="@init(vm.empresaUsuarioFinder)" />
+									<textbox
+										value="@load(vm.usuarioSelected.fullName)" readonly="true"
+										width="200px" />
+									<button iconSclass="z-icon-plus"
+										onClick="@command('agregarUsuario')" />
 
-
-				</auxheader>
-
-			</auxhead>
-
-			<listhead>
-
-				<listheader hflex="min" align="center" />
-				<listheader label="ID" align="center" hflex="min" />
-				<listheader label="Usuario" hflex="min" align="center" />
-				<listheader label="Nombre" align="center" />
-
-				<listheader label="Punto de Expedicion" hflex="min" align="center" />
+								</hbox>
 
 
 
-				<listheader align="center" hflex="min" />
+							</auxheader>
+
+						</auxhead>
+
+						<listhead>
+
+							<listheader hflex="min" align="center" />
+							<listheader label="ID" align="center"
+								hflex="min" />
+							<listheader label="Usuario" hflex="min"
+								align="center" />
+							<listheader label="Nombre" align="center" />
+
+							<listheader label="Punto de Expedicion"
+								hflex="min" align="center" />
 
 
-			</listhead>
 
-			<template name="model">
-			
-				<listitem>
-				
-					<listcell/>
-					<listcell label="@load(each.usuario.usuarioid)" />
-					<listcell label="@load(each.usuario.account)" />
-					<listcell label="@load(each.usuario.fullName)" />
-					<listcell>
-					
-						<textbox value="@bind(each.puntoExpedicion)"/>
-					
-					</listcell> 
-					<listcell>
-					
-						<button iconSclass="z-icon-trash" />
-					
-					</listcell>
-				
-				</listitem>
-			
-			</template>
+							<listheader align="center" hflex="min" />
 
 
-		</listbox>
-		
+						</listhead>
+
+						<template name="model">
+
+							<listitem>
+
+								<listcell />
+								<listcell
+									label="@load(each.usuario.usuarioid)" />
+								<listcell
+									label="@load(each.usuario.account)" />
+								<listcell
+									label="@load(each.usuario.fullName)" />
+								<listcell>
+
+									<textbox
+										value="@bind(each.puntoExpedicion)" />
+
+								</listcell>
+								<listcell>
+
+									<button iconSclass="z-icon-trash" class="doxa-button-red"/>
+
+								</listcell>
+
+							</listitem>
+
+						</template>
+
+
+					</listbox>
+
+				</tabpanel>
+
+				<tabpanel>
+
+					<listbox emptyMessage="lista vacía..." mold="paging"
+						autopaging="true" height="200px"
+						model="@load(vm.sucursalSelected.depositos)" checkmark="true">
+
+						<listhead>
+
+							<listheader hflex="min" align="center" />
+							<listheader label="ID" align="center"
+								hflex="min" />
+							<listheader label="Deposito" 
+								align="center" />
+							<listheader label="Facturacion"
+								align="center" />
+
+
+						</listhead>
+
+						<template name="model">
+
+							<listitem>
+
+								<listcell />
+								<listcell
+									label="@load(each.depositoid)" />
+								<listcell
+									label="@load(each.nombre)" style="text-align:left"/>
+								<listcell>
+								
+									<checkbox
+										checked="@bind(each.facturacion)"  mold="switch" />
+								
+								</listcell>
+						
+
+							</listitem>
+
+						</template>
+
+
+					</listbox>
+
+				</tabpanel>
+
+			</tabpanels>
+
+		</tabbox>
+
+
+
 		<space height="10px" />
 
 		<hlayout>

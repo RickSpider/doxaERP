@@ -1,0 +1,357 @@
+<?page title="Facturacion" contentType="text/html;charset=UTF-8"?>
+<?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
+<zk>
+	<window title="Facturacion" border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.gestion.FacturacionVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<vlayout vflex="1">
+			<tablelayout columns="8">
+
+				<tablechildren>
+					<label value="RUC/CI:" style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.ventaSelected.persona.documentoNum)"
+						finderModel="@init(vm.personaFinder)" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Persona:" style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<textbox value="@load(vm.ventaSelected.razonSocial)"
+						readonly="true" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Tipo Comprobante:"
+						style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.ventaSelected.comprobanteTipo.tipo)"
+						finderModel="@init(vm.comprobanteTipoFinder)" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Condicion de Venta:"
+						style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.ventaSelected.condicionVentaTipo.tipo)"
+						finderModel="@init(vm.condicionVentaTipoFinder)" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Moneda:" style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.ventaSelected.monedaTipo.tipo)"
+						finderModel="@init(vm.monedaTipoFinder)" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Cambio:" style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<textbox
+						value="@load(vm.ventaSelected.monedaCambio) @converter('formatedNumber', format='#,###.##')"
+						style="text-align: right;" readonly="true" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Comprobante #:"
+						style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<textbox
+						value="@load(vm.ventaSelected.comprobanteNum)" readonly="true" />
+				</tablechildren>
+
+				<tablechildren>
+					<label value="Fecha:" style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<datebox value="@bind(vm.ventaSelected.fecha)"
+						format="dd/MM/yyyy" showTodayLink="true" width="150px"
+						onChange="@command('onChangeFecha')"
+						onKey="@command('onChangeFecha')" />
+				</tablechildren>
+
+			</tablelayout>
+
+			<hlayout vflex="1">
+
+				<listbox emptyMessage="lista vacía..." mold="paging"
+					autopaging="true" hflex="1" vflex="2"
+					model="@load(vm.ventaSelected.detalles)">
+
+					<auxhead>
+
+						<auxheader colspan="8">
+
+							<tablelayout columns="7">
+
+								<tablechildren>
+									<label value="Suscripcion:"
+										style="font-weight:bold" />
+								</tablechildren>
+
+								<tablechildren>
+
+									<finder
+										finderValue="@load(vm.ventaDetalleSelected.suscripcion.suscripcionid)"
+										finderModel="@init(vm.suscripcionFinder)" />
+
+								</tablechildren>
+
+								<tablechildren colspan="5">
+									<textbox
+										value="@load(vm.ventaDetalleSelected.suscripcion.persona.razonSocial)"
+										readonly="true" />
+								</tablechildren>
+
+
+
+								<tablechildren>
+									<label value="Item:"
+										style="font-weight:bold" />
+								</tablechildren>
+
+								<tablechildren>
+
+									<finder
+										finderValue="@load(vm.ventaDetalleSelected.producto.productoid)"
+										finderModel="@init(vm.productoFinder)" />
+
+								</tablechildren>
+
+								<tablechildren>
+									<textbox
+										value="@load(vm.ventaDetalleSelected.producto.nombre)"
+										readonly="true" />
+								</tablechildren>
+
+								<tablechildren>
+									<label value="Cantidad:"
+										style="font-weight:bold" />
+								</tablechildren>
+
+								<tablechildren>
+									<doublebox
+										value="@bind(vm.ventaDetalleSelected.cantidad)" />
+								</tablechildren>
+
+								<tablechildren>
+									<button iconSclass="z-icon-plus"
+										class="doxa-button-green" onClick="@command('agregarDetalle')"
+										tooltiptext="Agregar Detalle" />
+								</tablechildren>
+
+							</tablelayout>
+
+						</auxheader>
+
+					</auxhead>
+
+					<listhead>
+
+						<listheader label="Cant." align="center"
+							width="80px" hflex="min" />
+						<listheader label="Codigo" align="center"
+							hflex="min" />
+						<listheader label="Descripcion" align="center" />
+						<listheader label="Unidad Medida" align="center"
+							hflex="min" />
+						<listheader label="Precio" align="center"
+							hflex="min" />
+						<listheader label="Descuento" align="center"
+							hflex="min" />
+						<listheader label="IVA" align="center"
+							hflex="min" />
+						<listheader label="TOTAL" align="center"
+							hflex="min" />
+
+						<listheader align="center" width="150px"
+							hflex="min" />
+
+					</listhead>
+
+					<template name="model">
+
+						<listitem>
+
+							<listcell label="@load(each.cantidad)" />
+							<listcell
+								label="@load(each.producto.productoid)" />
+							<listcell
+								label="@load(each.productoDescripcion)" style="text-align:left" />
+							<listcell
+								label="@load(each.unidadMedidaTipo.tipo)"
+								style="text-align:left" />
+							<listcell>
+								<doublebox value="@load(each.precio)"
+									format="#,###" style="text-align:right" readonly="true" />
+							</listcell>
+							<listcell>
+								<doublebox value="@bind(each.descuento)"
+									onChange="@command('actualizarTotales')" format="#,###"
+									style="text-align:right" />
+							</listcell>
+							<listcell
+								label="@load(each.ivaTipo.descripcion)" />
+
+							<listcell>
+								<doublebox
+									value="@load((each.cantidad * each.precio)-each.descuento)"
+									format="#,###" style="text-align:right" readonly="true" />
+							</listcell>
+							<listcell>
+
+								<button iconSclass="z-icon-trash"
+									class="doxa-button-red"
+									onClick="@command('borrarDetalle', ventaDetalle = each)" />
+
+							</listcell>
+
+
+
+						</listitem>
+					</template>
+
+					<listfoot>
+						<listfooter span="5" align="left">
+							<hlayout>
+								<label
+									value="@load(vm.ventaSelected.detalles.size())" />
+								<label value="items" />
+							</hlayout>
+						</listfooter>
+					</listfoot>
+
+				</listbox>
+
+				<vlayout>
+
+					<label value="Detalle de Impuestos"
+						style="font-weight:bold; font-size:14pt" />
+
+					<tablelayout columns="2">
+
+						<tablechildren>
+							<label value="IVA 10:"
+								style="font-weight:bold" />
+						</tablechildren>
+						<tablechildren>
+							<doublebox
+								value="@load(vm.ventaSelected.total10)" format="#,###"
+								style="text-align:right" readonly="true" />
+						</tablechildren>
+
+						<tablechildren>
+							<label value="IVA 5:"
+								style="font-weight:bold" />
+						</tablechildren>
+						<tablechildren>
+							<doublebox
+								value="@load(vm.ventaSelected.total5)" format="#,###"
+								style="text-align:right" readonly="true" />
+						</tablechildren>
+
+						<tablechildren>
+							<label value="Exento:"
+								style="font-weight:bold" />
+						</tablechildren>
+						<tablechildren>
+							<doublebox
+								value="@load(vm.ventaSelected.totalExento)" format="#,###"
+								style="text-align:right" readonly="true" />
+						</tablechildren>
+
+						<tablechildren>
+							<label value="Total:"
+								style="font-weight:bold" />
+						</tablechildren>
+						<tablechildren>
+							<doublebox
+								value="@load(vm.ventaSelected.total10 + vm.ventaSelected.total5 + vm.ventaSelected.totalExento)"
+								format="#,###" style="text-align:right;  font-weight:bold;"
+								readonly="true" />
+						</tablechildren>
+
+					</tablelayout>
+
+					<label value="Detalle de Pago"
+						style="font-weight:bold; font-size:14pt" />
+
+					<tablelayout columns="2">
+
+
+						<tablechildren>
+							<label value="Tipo Pago:"
+								style="font-weight:bold" />
+						</tablechildren>
+
+						<tablechildren>
+							<finder
+								finderValue="@load(vm.ventaPagoSelected.formaPagoTipo.tipo)"
+								finderModel="@init(vm.formaPagoTipoFinder)" />
+						</tablechildren>
+
+						<tablechildren>
+							<label value="Monto:"
+								style="font-weight:bold" />
+						</tablechildren>
+
+						<tablechildren>
+							<doublebox
+								value="@bind(vm.ventaPagoSelected.monto)"
+								onChange="@command('actualizarVuelto')" format="#,###"
+								style="text-align:right" />
+						</tablechildren>
+
+						<tablechildren>
+							<label value="Vuelto:"
+								style="font-weight:bold" />
+						</tablechildren>
+
+						<tablechildren>
+							<doublebox value="@load(vm.vuelto)"
+								readonly="true" format="#,###"
+								style="text-align:right; font-weight:bold;" />
+						</tablechildren>
+
+					</tablelayout>
+
+					<vbox hflex="1" vflex="1" pack="center"
+						align="center">
+
+						<button label="Cobrar"
+							onClick="@command('guardarVenta')" class="doxa-button-green"
+							height="50px" width="125px"
+							disabled="@load(vm.disabledBotonCobrar)" />
+						<button label="LIMPIAR"
+							onClick="@command('limpiarVenta')" />
+
+					</vbox>
+
+				</vlayout>
+
+			</hlayout>
+
+		</vlayout>
+
+	</window>
+</zk>

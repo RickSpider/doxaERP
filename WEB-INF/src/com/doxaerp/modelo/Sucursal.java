@@ -3,6 +3,8 @@ package com.doxaerp.modelo;
 import java.io.Serializable;
 import java.util.List;
 
+import com.doxacore.modelo.Tipo;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,8 +33,15 @@ public class Sucursal extends ModeloERP implements Serializable{
 	private String establecimiento;
 	private String direccion;
 	
+	@ManyToOne
+	@JoinColumn(name = "comprobantetipoid",nullable = false)
+	private Tipo comprobanteTipo;
+	
 	@OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<SucursalUsuario> usuarios;
+	
+	@OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Deposito> depositos;
 
 	public Long getSucursalid() {
 		return sucursalid;
@@ -65,8 +74,6 @@ public class Sucursal extends ModeloERP implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
-	
 
 	public List<SucursalUsuario> getUsuarios() {
 		return usuarios;
@@ -74,6 +81,14 @@ public class Sucursal extends ModeloERP implements Serializable{
 
 	public void setUsuarios(List<SucursalUsuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public List<Deposito> getDepositos() {
+		return depositos;
+	}
+
+	public void setDepositos(List<Deposito> depositos) {
+		this.depositos = depositos;
 	}
 
 	@Override
@@ -87,5 +102,15 @@ public class Sucursal extends ModeloERP implements Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Tipo getComprobanteTipo() {
+		return comprobanteTipo;
+	}
+
+	public void setComprobanteTipo(Tipo comprobanteTipo) {
+		this.comprobanteTipo = comprobanteTipo;
+	}
+	
+	
 
 }

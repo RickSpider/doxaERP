@@ -128,7 +128,7 @@ public class AjusteVM extends TemplateViewModelLocal{
 		} else {
 
 			this.ajusteSelected = new Ajuste();
-			this.ajusteSelected.setEmpresa(getCurrentEmpresa());
+			//this.ajusteSelected.setEmpresa(getCurrentEmpresa());
 			this.ajusteSelected.setFecha(new Date());
 			
 
@@ -158,7 +158,7 @@ public class AjusteVM extends TemplateViewModelLocal{
 			if (pd == null) {
 			
 				pd = new ProductoDeposito();
-				pd.setEmpresa(this.ajusteSelected.getEmpresa());
+				//pd.setEmpresa(this.ajusteSelected.getEmpresa());
 				pd.setDeposito(this.ajusteSelected.getDeposito());
 				pd.setProducto(ad.getProducto());
 				

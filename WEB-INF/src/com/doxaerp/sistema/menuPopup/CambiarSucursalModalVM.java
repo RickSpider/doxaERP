@@ -97,11 +97,21 @@ public class CambiarSucursalModalVM extends TemplateMenuPopup {
 	public void guardar() {
 		
 		SucursalUsuario suOld = this.getCurrentSucursalUsuario();
-		suOld.setActual(false);
-		this.reg.saveObject(suOld, suOld.getUsuario().getAccount());
 		
+
 		this.sucursalUsuarioSelected.setActual(true);
 		this.reg.saveObject(sucursalUsuarioSelected, sucursalUsuarioSelected.getUsuario().getAccount());
+		
+		//de esta manera no da excepcion
+		
+		
+		if(suOld != null) {
+			
+			suOld.setActual(false);
+			this.reg.saveObject(suOld, suOld.getUsuario().getAccount());
+			
+		}
+		
 		
 		this.windowModal.detach();
 		Clients.evalJavaScript("window.location.reload();");

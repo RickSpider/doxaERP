@@ -18,6 +18,7 @@ import org.zkoss.zul.Window;
 
 import com.doxacore.components.finder.FinderModel;
 import com.doxacore.modelo.Tipo;
+import com.doxaerp.modelo.Marca;
 import com.doxaerp.modelo.Producto;
 import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
@@ -65,7 +66,7 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 	private void inicializarFiltros() {
 
-		this.filtroColumns = new String[4];
+		this.filtroColumns = new String[5];
 
 		for (int i = 0; i < this.filtroColumns.length; i++) {
 
@@ -126,9 +127,10 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 			this.productoSelected = new Producto();
 			this.productoSelected.setProductoTipo(this.tipoProducto);
-			this.productoSelected.setEmpresa(getCurrentEmpresa());
+			//this.productoSelected.setEmpresa(getCurrentEmpresa());
 			this.productoSelected.setMonedaVentaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_MONEDA_GUARANIES));
 			this.productoSelected.setIvaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_IVA_10));
+			this.productoSelected.setUnidadMedidaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_UNIDADMEDIDA_UNIDAD));
 
 		}
 
@@ -163,6 +165,8 @@ public class ProductoVM extends TemplateViewModelLocal{
 	
 	private FinderModel ivaTipoFinder;
 	private FinderModel monedaTipoFinder;
+	private FinderModel unidadMedidaTipoFinder;
+	private FinderModel marcaFinder;
 
 	@NotifyChange("*")
 	public void inicializarFinders() {
@@ -172,6 +176,12 @@ public class ProductoVM extends TemplateViewModelLocal{
 		
 		String sqlmonedaTipo = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_TIPOTIPO_MONEDA );
 		monedaTipoFinder = new FinderModel("MONEDA", sqlmonedaTipo);
+		
+		String sqlunidadMedidaTipo = this.um.getCoreSql("buscarTiposPorSiglaTipotipo.sql").replace("?1", ParamsLocal.SIGLA_TIPOTIPO_UNIDADMEDIDA );
+		unidadMedidaTipoFinder = new FinderModel("UNIDADMEDIDA", sqlunidadMedidaTipo);
+		
+		String sqlMarca = this.um.getSql("marca/buscarMarca.sql");
+		marcaFinder = new FinderModel("MARCA", sqlMarca);
 
 	}
 
@@ -193,7 +203,23 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 			return;
 		}
+		
+		if (finder.compareTo(this.unidadMedidaTipoFinder.getNameFinder()) == 0) {
 
+			this.unidadMedidaTipoFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.unidadMedidaTipoFinder, "listFinder");
+
+			return;
+		}
+
+		
+		if (finder.compareTo(this.marcaFinder.getNameFinder()) == 0) {
+
+			this.marcaFinder.generarListFinder();
+			BindUtils.postNotifyChange(null, null, this.marcaFinder, "listFinder");
+
+			return;
+		}
 	}
 
 	@Command
@@ -211,6 +237,22 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 			this.monedaTipoFinder.setListFinder(this.filtrarListaObject(filter, this.monedaTipoFinder.getListFinderOri()));
 			BindUtils.postNotifyChange(null, null, this.monedaTipoFinder, "listFinder");
+
+			return;
+		}
+		
+		if (finder.compareTo(this.unidadMedidaTipoFinder.getNameFinder()) == 0) {
+
+			this.unidadMedidaTipoFinder.setListFinder(this.filtrarListaObject(filter, this.unidadMedidaTipoFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.unidadMedidaTipoFinder, "listFinder");
+
+			return;
+		}
+		
+		if (finder.compareTo(this.marcaFinder.getNameFinder()) == 0) {
+
+			this.marcaFinder.setListFinder(this.filtrarListaObject(filter, this.marcaFinder.getListFinderOri()));
+			BindUtils.postNotifyChange(null, null, this.marcaFinder, "listFinder");
 
 			return;
 		}
@@ -234,6 +276,18 @@ public class ProductoVM extends TemplateViewModelLocal{
 			return;
 		}
 
+		
+		if (finder.compareTo(this.unidadMedidaTipoFinder.getNameFinder()) == 0) {
+
+			this.productoSelected.setUnidadMedidaTipo(this.reg.getObjectById(Tipo.class.getName(), id));
+			return;
+		}
+		
+		if (finder.compareTo(this.marcaFinder.getNameFinder()) == 0) {
+
+			this.productoSelected.setMarca(this.reg.getObjectById(Marca.class.getName(), id));
+			return;
+		}
 	}
 
 
@@ -308,6 +362,22 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 	public void setMonedaTipoFinder(FinderModel monedaTipoFinder) {
 		this.monedaTipoFinder = monedaTipoFinder;
+	}
+
+	public FinderModel getUnidadMedidaTipoFinder() {
+		return unidadMedidaTipoFinder;
+	}
+
+	public void setUnidadMedidaTipoFinder(FinderModel unidadMedidaTipoFinder) {
+		this.unidadMedidaTipoFinder = unidadMedidaTipoFinder;
+	}
+
+	public FinderModel getMarcaFinder() {
+		return marcaFinder;
+	}
+
+	public void setMarcaFinder(FinderModel marcaFinder) {
+		this.marcaFinder = marcaFinder;
 	}
 	
 	

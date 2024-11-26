@@ -41,7 +41,7 @@ public class Producto extends ModeloERP implements Serializable{
 	private Tipo productoTipo;
 	
 	private Double precioCompra;
-	
+
 	@Column(nullable = false)
 	private Double precioVenta;
 	
@@ -53,8 +53,15 @@ public class Producto extends ModeloERP implements Serializable{
 	@JoinColumn(name = "ivatipoid", nullable = false)
 	private Tipo ivaTipo;
 	
+	@ManyToOne
+	@JoinColumn(name = "unidadmedidatipoid" , nullable = false)
+	private Tipo unidadMedidaTipo;
+	
+	@ManyToOne
+	@JoinColumn(name = "marcaid")
+	private Marca marca;
+	
 	@OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
-	@Immutable
 	private List<ProductoDeposito> inventario = new ArrayList<ProductoDeposito>();
 
 	private boolean controlStock = true;
@@ -146,4 +153,21 @@ public class Producto extends ModeloERP implements Serializable{
 		return null;
 	}
 
+	public Tipo getUnidadMedidaTipo() {
+		return unidadMedidaTipo;
+	}
+
+	public void setUnidadMedidaTipo(Tipo unidadMedidaTipo) {
+		this.unidadMedidaTipo = unidadMedidaTipo;
+	}
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+	
+	
 }

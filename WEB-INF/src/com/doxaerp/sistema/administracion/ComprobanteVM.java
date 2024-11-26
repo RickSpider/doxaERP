@@ -119,7 +119,7 @@ public class ComprobanteVM extends TemplateViewModelLocal{
 		} else {
 
 			this.comprobanteSelected = new Comprobante();
-			this.comprobanteSelected.setEmpresa(this.getCurrentEmpresa());
+		//	this.comprobanteSelected.setEmpresa(this.getCurrentEmpresa());
 		//	this.comprobanteSelected.setSucursal(this.getCurrentSucursal());
 
 		}

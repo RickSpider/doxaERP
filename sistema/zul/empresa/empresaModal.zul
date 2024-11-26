@@ -34,6 +34,14 @@
 			<tablechildren>
 				<textbox value="@bind(vm.empresaSelected.ruc)" />
 			</tablechildren>
+			
+			<tablechildren>
+				<label value="Logo Path:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.empresaSelected.logopath)" />
+			</tablechildren>
 
 		</tablelayout>
 

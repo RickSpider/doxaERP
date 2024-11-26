@@ -33,13 +33,27 @@ public class VentaDetalle extends ModeloERP implements Serializable {
 	@JoinColumn(name = "productoid", nullable = false)
 	private Producto producto;
 	
+	@ManyToOne
+	@JoinColumn(name = "depositoid")
+	private Deposito deposito;
+	
+	private double descuento = 0;
+	
 	private String productoDescripcion;
 	private double precio;
-	private double cantidad;
+	private double cantidad = 1;
+	
+	@ManyToOne
+	@JoinColumn(name = "suscripcionid")
+	private Suscripcion suscripcion;	
 	
 	@ManyToOne
 	@JoinColumn(name = "ivatipoid", nullable = false)
 	private Tipo ivaTipo;
+	
+	@ManyToOne
+	@JoinColumn(name = "unidadmedidatipoid" , nullable = false)
+	private Tipo unidadMedidaTipo;
 
 	@Override
 	public Object[] getArrayObjectDatos() {
@@ -87,6 +101,36 @@ public class VentaDetalle extends ModeloERP implements Serializable {
 	}
 	public void setProductoDescripcion(String productoDescripcion) {
 		this.productoDescripcion = productoDescripcion;
+	}
+	public double getDescuento() {
+		return descuento;
+	}
+	public void setDescuento(double descuento) {
+		this.descuento = descuento;
+	}
+	public Tipo getIvaTipo() {
+		return ivaTipo;
+	}
+	public void setIvaTipo(Tipo ivaTipo) {
+		this.ivaTipo = ivaTipo;
+	}
+	public Tipo getUnidadMedidaTipo() {
+		return unidadMedidaTipo;
+	}
+	public void setUnidadMedidaTipo(Tipo unidadMedidaTipo) {
+		this.unidadMedidaTipo = unidadMedidaTipo;
+	}
+	public Deposito getDeposito() {
+		return deposito;
+	}
+	public void setDeposito(Deposito deposito) {
+		this.deposito = deposito;
+	}
+	public Suscripcion getSuscripcion() {
+		return suscripcion;
+	}
+	public void setSuscripcion(Suscripcion suscripcion) {
+		this.suscripcion = suscripcion;
 	}
 
 	

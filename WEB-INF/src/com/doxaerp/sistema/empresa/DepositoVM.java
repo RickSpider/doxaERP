@@ -117,7 +117,7 @@ public class DepositoVM extends TemplateViewModelLocal{
 		} else {
 
 			this.depositoSelected = new Deposito();
-			this.depositoSelected.setEmpresa(getCurrentEmpresa());
+			//this.depositoSelected.setEmpresa(getCurrentEmpresa());
 			this.depositoSelected.setSucursal(getCurrentSucursal());
 			
 

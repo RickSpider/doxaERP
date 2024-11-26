@@ -21,6 +21,17 @@
 					<textbox
 						value="@load(vm.productoSelected.productoid)" readonly="true" width="50px"/>
 				</tablechildren>
+				
+				<tablechildren>
+					<label value="Marca:"
+						style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.productoSelected.marca.nombre)"
+						finderModel="@init(vm.marcaFinder)" />
+				</tablechildren>
 
 				<tablechildren>
 					<label value="Nombre:" style="font-weight:bold" />
@@ -70,6 +81,17 @@
 					<finder
 						finderValue="@load(vm.productoSelected.ivaTipo.tipo)"
 						finderModel="@init(vm.ivaTipoFinder)" />
+				</tablechildren>
+				
+				<tablechildren>
+					<label value="Unidad de Medida:"
+						style="font-weight:bold" />
+				</tablechildren>
+
+				<tablechildren>
+					<finder
+						finderValue="@load(vm.productoSelected.unidadMedidaTipo.tipo)"
+						finderModel="@init(vm.unidadMedidaTipoFinder)" />
 				</tablechildren>
 
 				<tablechildren>
