@@ -40,8 +40,9 @@ public class ServicioVM extends TemplateViewModelLocal{
 		
 		this.tipoServicio = this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_PRODUCTO_SERVCIO);
 
-		this.cargarServicios();
 		this.inicializarFiltros();
+		this.cargarServicios();
+		
 	}
 
 	@AfterCompose(superclass = true)
@@ -88,6 +89,7 @@ public class ServicioVM extends TemplateViewModelLocal{
 		this.lServicios = this.reg.sqlNativo(sql);
 		this.lServiciosOri = this.lServicios;
 
+		this.filtrarServicio();
 	}
 	
 	//seccion modal

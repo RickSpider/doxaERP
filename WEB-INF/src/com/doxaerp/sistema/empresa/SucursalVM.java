@@ -40,8 +40,9 @@ public class SucursalVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initSucursalVM() {
 
-		this.cargarSucursales();
 		this.inicializarFiltros();
+		this.cargarSucursales();
+		
 	}
 
 	@AfterCompose(superclass = true)
@@ -85,6 +86,8 @@ public class SucursalVM extends TemplateViewModelLocal{
 		String sql = this.um.getSql("sucursal/listaSucursal.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
 		this.lSucursales = this.reg.sqlNativo(sql);
 		this.lSucursalesOri = this.lSucursales;
+		
+		this.filtrarSucursal();
 
 	}
 	

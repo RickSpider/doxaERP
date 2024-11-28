@@ -1,9 +1,11 @@
 <?page title="Facturacion" contentType="text/html;charset=UTF-8"?>
 <?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
 <zk>
-	<window title="Facturacion" border="normal"
+	<window border="normal"
 		viewModel="@id('vm') @init('com.doxaerp.sistema.gestion.FacturacionVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+		
+		<caption label="Facturacion" style="font-weight:bold"/>
 
 		<vlayout vflex="1">
 			<tablelayout columns="8">

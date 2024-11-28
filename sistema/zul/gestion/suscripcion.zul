@@ -1,8 +1,10 @@
 <?page title="Suscripciones" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Suscripcion" border="normal"
+	<window border="normal"
 		viewModel="@id('vm') @init('com.doxaerp.sistema.gestion.SuscripcionVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+		
+		<caption label="Suscripcion" style="font-weight:bold"/>
 
 		<hlayout vflex="1">
 

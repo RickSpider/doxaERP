@@ -34,8 +34,9 @@ public class VentaVM extends TemplateViewModelLocal{
 
 		fechaHasta = this.um.modificarHorasMinutosSegundos(this.fechaDesde, 23, 59, 59, 999);
 		
-		this.cargarVentas();
 		this.inicializarFiltros();
+		this.cargarVentas();
+		
 
 	}
 
@@ -83,6 +84,8 @@ public class VentaVM extends TemplateViewModelLocal{
 		
 		this.lVentas = this.reg.sqlNativo(sql);
 		this.lVentasOri = this.lVentas;
+		
+		this.filtrarVenta();
 
 	}
 	

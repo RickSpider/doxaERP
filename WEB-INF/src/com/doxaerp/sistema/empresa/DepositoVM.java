@@ -36,8 +36,9 @@ public class DepositoVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initDepositoVM() {
 
-		this.cargarDepositos();
 		this.inicializarFiltros();
+		this.cargarDepositos();
+		
 
 	}
 
@@ -82,6 +83,8 @@ public class DepositoVM extends TemplateViewModelLocal{
 		String sql = this.um.getSql("deposito/listaDeposito.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
 		this.lDepositos = this.reg.sqlNativo(sql);
 		this.lDepositosOri = this.lDepositos;
+		
+		this.filtrarDeposito();
 
 	}
 	

@@ -39,8 +39,9 @@ public class CajaVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initCajaVM() {
 
-		this.cargarCajas();
 		this.inicializarFiltros();
+		this.cargarCajas();
+		
 
 	}
 
@@ -85,12 +86,14 @@ public class CajaVM extends TemplateViewModelLocal{
 		String sql = this.um.getSql("caja/listaCaja.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
 		this.lCajas = this.reg.sqlNativo(sql);
 		this.lCajasOri = this.lCajas;
+		
+		this.filtrarCaja();
 
 	}
 	
 	public boolean existeCajaAbierta() {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		SucursalUsuario su = this.getCurrentSucursalUsuario();
 		

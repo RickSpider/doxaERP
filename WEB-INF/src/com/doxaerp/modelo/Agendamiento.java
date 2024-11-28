@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -27,11 +29,15 @@ public class Agendamiento extends ModeloERP implements Serializable{
 	private String titulo;
 	private String contenido;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date inicio = new Date();
+	@ManyToOne
+	@JoinColumn(name = "sucursalid")
+	private Sucursal sucursal;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fin = new Date();
+	private Date inicio;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fin;
 
 	@Override
 	public Object[] getArrayObjectDatos() {
@@ -84,7 +90,13 @@ public class Agendamiento extends ModeloERP implements Serializable{
 	public void setFin(Date fin) {
 		this.fin = fin;
 	}
-	
-	
+
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
 
 }

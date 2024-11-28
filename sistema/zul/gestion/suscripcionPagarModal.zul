@@ -5,9 +5,11 @@
 <zk>
 
 
-	<window title="Pagar Suscripcion" border="normal"
+	<window border="normal"
 		position="center,center" closable="true" mode="modal"
 		action="show: slideDown;hide: slideUp" width="600px">
+		
+		<caption label="Pagar Suscripcion" style="font-weight:bold"/>
 
 		<hlayout>
 

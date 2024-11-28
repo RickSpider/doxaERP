@@ -38,8 +38,9 @@ public class PersonaVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initPersonaVM() {
 
-		this.cargarPersonas();
 		this.inicializarFiltros();
+		this.cargarPersonas();
+		
 	}
 
 	@AfterCompose(superclass = true)
@@ -83,6 +84,8 @@ public class PersonaVM extends TemplateViewModelLocal{
 		String sql = this.um.getSql("persona/listaPersona.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
 		this.lPersonas = this.reg.sqlNativo(sql);
 		this.lPersonasOri = this.lPersonas;
+		
+		this.filtrarPersona();
 
 	}
 	

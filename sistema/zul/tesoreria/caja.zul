@@ -1,8 +1,10 @@
 <?page title="Cajas" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Caja" border="normal"
+	<window border="normal"
 		viewModel="@id('vm') @init('com.doxaerp.sistema.tesoreria.CajaVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+		
+		<caption label="Caja" style="font-weight:bold"/>
 
 		<hlayout vflex="1">
 

@@ -3,9 +3,11 @@
 <?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
 
 <zk>
-	<window title="Cerrar Caja" border="normal"
+	<window border="normal"
 		position="center,center" closable="true" mode="modal"
 		action="show: slideDown;hide: slideUp">
+		
+		<caption label="Cerrar Caja" style="font-weight:bold"/>
 
 		<vlayout>
 

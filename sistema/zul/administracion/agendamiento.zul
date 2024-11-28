@@ -1,8 +1,10 @@
 <?page title="Agendamientos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Agendamiento" border="normal"
+	<window border="normal"
 		viewModel="@id('vm') @init('com.doxaerp.sistema.administracion.AgendamientoVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<caption label="Agendamiento" style="font-weight:bold"/>
 
 		<hlayout vflex="1">
 
@@ -26,10 +28,9 @@
 						<listheader hflex="min" align="center" />
 						<listheader label="ID" align="center"
 							hflex="min" />
+						<listheader label="TITULO" align="center" />		
 						<listheader label="F. INICIO" align="center" />
 						<listheader label="F. Fin" align="center" />		
-						
-						<listheader label="TITULO" align="center" />						
 
 						<listheader align="center" width="150px" />
 

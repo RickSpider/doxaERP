@@ -44,8 +44,9 @@ public class ProductoVM extends TemplateViewModelLocal{
 
 		this.tipoProducto = this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_PRODUCTO_PRODUCTO);
 		
-		this.cargarProductos();
 		this.inicializarFiltros();
+		this.cargarProductos();
+		
 	}
 
 	@AfterCompose(superclass = true)
@@ -91,6 +92,8 @@ public class ProductoVM extends TemplateViewModelLocal{
 				.replace("?2", this.tipoProducto.getTipoid()+"");;
 		this.lProductos = this.reg.sqlNativo(sql);
 		this.lProductosOri = this.lProductos;
+		
+		this.filtrarProducto();
 
 	}
 	

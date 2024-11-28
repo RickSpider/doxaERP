@@ -1,8 +1,10 @@
 <?page title="Calendario" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Calendario" border="normal"
+	<window border="normal"
 		viewModel="@id('vm') @init('com.doxaerp.sistema.main.CalendarVM')"
 				vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+				
+		<caption label="Calendario" style="font-weight:bold"/>
 
 		<div apply="com.doxaerp.sistema.main.calendar.CalendarController"
 			  vflex="1">

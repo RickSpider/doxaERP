@@ -1,8 +1,10 @@
 <?page title="Productos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Producto" border="normal"
+	<window border="normal"
 		viewModel="@id('vm') @init('com.doxaerp.sistema.abm.ProductoVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+		
+		<caption label="Producto" style="font-weight:bold"/>
 
 		<hlayout vflex="1">
 

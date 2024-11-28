@@ -5,9 +5,11 @@
 <zk>
 
 
-	<window title="Suscripcion Crear/Ver/Editar" border="normal"
+	<window border="normal"
 		position="center,center" closable="true" mode="modal"
 		action="show: slideDown;hide: slideUp" width="500px">
+
+		<caption label="Suscripcion Crear/Ver/Editar" style="font-weight:bold"/>
 
 		<tablelayout columns="2">
 

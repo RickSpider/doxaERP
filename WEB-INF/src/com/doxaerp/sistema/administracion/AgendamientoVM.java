@@ -1,7 +1,9 @@
 package com.doxaerp.sistema.administracion;
 
+import java.util.Date;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -12,7 +14,11 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Notification;
 import org.zkoss.zul.Window;
 
+import com.doxacore.components.finder.FinderModel;
+import com.doxacore.modelo.Tipo;
+import com.doxacore.modelo.Usuario;
 import com.doxaerp.modelo.Agendamiento;
+import com.doxaerp.modelo.Producto;
 import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
 
@@ -33,8 +39,9 @@ public class AgendamientoVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initAgendamientoVM() {
 
-		this.cargarAgendamientos();
 		this.inicializarFiltros();
+		this.cargarAgendamientos();
+		
 
 	}
 
@@ -46,6 +53,7 @@ public class AgendamientoVM extends TemplateViewModelLocal{
 	
 	@Override
 	protected void inicializarOperaciones() {
+		
 		this.opCrearAgendamiento = this.operacionHabilitada(ParamsLocal.OP_CREAR_AGENDAMIENTO);
 		this.opEditarAgendamiento = this.operacionHabilitada(ParamsLocal.OP_EDITAR_AGENDAMIENTO);
 		this.opBorrarAgendamiento = this.operacionHabilitada(ParamsLocal.OP_BORRAR_AGENDAMIENTO);
@@ -76,7 +84,10 @@ public class AgendamientoVM extends TemplateViewModelLocal{
 
 	private void cargarAgendamientos() {
 
-		String sql = this.um.getSql("agendamiento/listaAgendamiento.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
+		String sql = this.um.getSql("agendamiento/listaAgendamiento.sql")
+				.replace("?1", this.getCurrentEmpresa().getEmpresaid()+"")
+				.replace("?2", this.getCurrentSucursal().getSucursalid()+"");
+		
 		this.lAgendamientos = this.reg.sqlNativo(sql);
 		this.lAgendamientosOri = this.lAgendamientos;
 
@@ -112,7 +123,12 @@ public class AgendamientoVM extends TemplateViewModelLocal{
 		} else {
 
 			this.agendamientoSelected = new Agendamiento();
-
+			this.agendamientoSelected.setSucursal(this.getCurrentSucursal());
+			
+			this.agendamientoSelected.setInicio(this.um.modificarHorasMinutosSegundos(new Date(), 9, 0, 0, 0));
+			this.agendamientoSelected.setFin(this.um.modificarHorasMinutosSegundos(new Date(), 10, 0, 0, 0));
+			this.agendamientoSelected.setSucursal(this.getCurrentSucursal());
+			
 			
 
 		}
@@ -145,6 +161,8 @@ public class AgendamientoVM extends TemplateViewModelLocal{
 		this.cargarAgendamientos();
 
 	}
+	
+
 	
 	
 	public List<Object[]> getlAgendamientos() {
@@ -202,7 +220,6 @@ public class AgendamientoVM extends TemplateViewModelLocal{
 	public void setFiltroColumns(String[] filtroColumns) {
 		this.filtroColumns = filtroColumns;
 	}
-	
 	
 
 }

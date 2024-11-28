@@ -1,9 +1,11 @@
 <?page title="Ventas" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Venta" border="normal"
+	<window border="normal" 
 		viewModel="@id('vm') @init('com.doxaerp.sistema.administracion.VentaVM')"
 		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
-
+		
+		<caption label="Venta" style="font-weight:bold"/>
+		
 		<hlayout vflex="1">
 
 			<vlayout hflex="1" vflex="1">

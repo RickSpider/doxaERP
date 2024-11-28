@@ -38,8 +38,9 @@ public class EmpresaVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initEmpresaVM() {
 
-		this.cargarEmpresas();
 		this.inicializarFiltros();
+		this.cargarEmpresas();
+		
 
 	}
 
@@ -84,6 +85,8 @@ public class EmpresaVM extends TemplateViewModelLocal{
 		String sql = this.um.getSql("empresa/listaEmpresa.sql");
 		this.lEmpresas = this.reg.sqlNativo(sql);
 		this.lEmpresasOri = this.lEmpresas;
+		
+		this.filtrarEmpresa();
 
 	}
 	

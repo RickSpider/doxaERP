@@ -52,9 +52,10 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 	
 	@Init(superclass = true)
 	public void initSuscripcionVM() {
-
-		this.cargarSuscripciones();
+		
 		this.inicializarFiltros();
+		this.cargarSuscripciones();
+		
 
 	}
 
@@ -99,6 +100,8 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 		String sql = this.um.getSql("suscripcion/listaSuscripcion.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
 		this.lSuscripciones = this.reg.sqlNativo(sql);
 		this.lSuscripcionesOri = this.lSuscripciones;
+		
+		this.filtrarSuscripcion();
 
 	}
 	

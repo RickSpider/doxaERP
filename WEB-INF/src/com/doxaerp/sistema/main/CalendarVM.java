@@ -68,12 +68,12 @@ public class CalendarVM extends TemplateViewModelLocal{
 				ci.setLocked(true);
 				
 				Date date = (Date) x[1];
-				date = um.modificarHorasMinutosSegundos(date, 7, 0, 0, 0);
+				date = um.modificarHorasMinutosSegundos(date, 8, 0, 0, 0);
 				calendar.setTime(date);
 				ci.setBeginDate(calendar.getTime());
 				
 				date = (Date) x[2];
-				date = um.modificarHorasMinutosSegundos(date, 8, 0, 0, 0);
+				date = um.modificarHorasMinutosSegundos(date, 9, 0, 0, 0);
 				
 				calendar.setTime(date);
 				ci.setEndDate(calendar.getTime());
@@ -86,7 +86,7 @@ public class CalendarVM extends TemplateViewModelLocal{
 			
 		}
 		
-		String sqlAgendamiento = this.um.getSql("calendar/listDatosAgendamiento.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"");
+		String sqlAgendamiento = this.um.getSql("calendar/listDatosAgendamiento.sql").replace("?1", this.getCurrentEmpresa().getEmpresaid()+"").replace("?2", this.getCurrentSucursal().getSucursalid()+"");
 		List<Object[]> lAgendamietos = this.reg.sqlNativo(sqlAgendamiento);
 		
 		if (lAgendamietos != null && lAgendamietos.size() > 0) {
@@ -102,7 +102,7 @@ public class CalendarVM extends TemplateViewModelLocal{
 				
 				ci.setTitle(x[1].toString());
 				ci.setContent(x[4].toString());
-				ci.setStyle("background-color: #0099CC; color: #FFA500;");
+				ci.setStyle("background-color: #008f39; color: #FFFFFF;");
 				
 				this.calendarModel.add(ci);
 			}

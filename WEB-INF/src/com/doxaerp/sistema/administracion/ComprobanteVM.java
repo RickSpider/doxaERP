@@ -37,8 +37,9 @@ public class ComprobanteVM extends TemplateViewModelLocal{
 	@Init(superclass = true)
 	public void initComprobanteVM() {
 
-		this.cargarComprobantes();
 		this.inicializarFiltros();
+		this.cargarComprobantes();
+		
 
 	}
 
@@ -84,6 +85,7 @@ public class ComprobanteVM extends TemplateViewModelLocal{
 		this.lComprobantes = this.reg.sqlNativo(sql);
 		this.lComprobantesOri = this.lComprobantes;
 
+		this.filtrarComprobante();
 	}
 	
 	//seccion modal
