@@ -41,6 +41,8 @@ public class Persona extends ModeloERP implements Serializable{
 	@Column(columnDefinition="TEXT")
 	private String direccion;
 	
+	private String telefono;
+	
 	public Tipo getDocumentoTipo() {
 		return documentoTipo;
 	}
@@ -87,6 +89,14 @@ public class Persona extends ModeloERP implements Serializable{
 
 	public void setDocumentoNum(String documentoNum) {
 		this.documentoNum = documentoNum;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	@Override

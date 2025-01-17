@@ -1,0 +1,38 @@
+<?page title="suscripcionModal" contentType="text/html;charset=UTF-8"?>
+
+<?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
+
+<zk>
+
+
+	<window 
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp" >
+		
+		<timer id="closeTimer" delay="3000" onTimer="self.getParent().detach()"/>
+		
+
+		<vlayout width="500px" height="150px" style="text-align: center; align-items: center; justify-content: center; background-color: red;">
+			
+			<space height="10px" />
+			<label value="*** Suscripcion Vencida ***" style="font-size: 28px; color: white;" />
+			<space height="5px" />
+			<label value="Vencimiento" style="font-size: 20px; color: white;" />
+			<label value="@load(vm.vencimiento)" style="font-size: 20px; color: white;" />
+		
+		
+		</vlayout>
+
+		<space height="10px" />
+
+		<hlayout>
+
+			<button label="Cerrar" onClick="self.getParent().getParent().detach()" />
+
+		</hlayout>
+
+
+
+
+	</window>
+</zk>

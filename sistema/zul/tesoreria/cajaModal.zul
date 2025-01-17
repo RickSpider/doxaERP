@@ -59,7 +59,7 @@
 				<tablechildren>
 
 					<datebox
-						value="@load(vm.cajaSelected.fechaApertura) @save(vm.cajaSelected.fechaApertura, before='guardar')"
+						value="@bind(vm.cajaSelected.fechaApertura)"
 						format="dd/MM/yyyy HH:mm:ss"
 						width="150px"  />
 

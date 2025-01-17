@@ -17,3 +17,4 @@
 <mapping class="com.doxaerp.modelo.VentaPago"/>
 <mapping class="com.doxaerp.modelo.Suscripcion"/>
 <mapping class="com.doxaerp.modelo.Agendamiento"/>
+<mapping class="com.doxaerp.modelo.Funcionario"/>

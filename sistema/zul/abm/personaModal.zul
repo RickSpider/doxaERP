@@ -16,9 +16,17 @@
 			<tablechildren>
 				<label value="ID:" style="font-weight:bold" />
 			</tablechildren>
-
+			
 			<tablechildren>
 				<textbox value="@load(vm.personaSelected.personaid)" readonly="true" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Razón Social:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.personaSelected.razonSocial)" constraint="no empty"/>
 			</tablechildren>
 			
 			<tablechildren>
@@ -35,16 +43,8 @@
 			</tablechildren>
 
 			<tablechildren>
-				<textbox value="@bind(vm.personaSelected.documentoNum)" />
-			</tablechildren>
-			
-			<tablechildren>
-				<label value="Razón Social:" style="font-weight:bold" />
-			</tablechildren>
-
-			<tablechildren>
-				<textbox value="@bind(vm.personaSelected.razonSocial)" />
-			</tablechildren>
+				<textbox value="@bind(vm.personaSelected.documentoNum)" constraint="no empty" />
+			</tablechildren>			
 			
 			<tablechildren>
 				<label value="Direccion:" style="font-weight:bold" />
@@ -60,6 +60,14 @@
 
 			<tablechildren>
 				<textbox value="@bind(vm.personaSelected.correo)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Telefono:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.personaSelected.telefono)" />
 			</tablechildren>
 			
 				

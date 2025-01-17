@@ -39,6 +39,8 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 	private boolean opCrearSuscripcion;
 	private boolean opEditarSuscripcion;
 	private boolean opBorrarSuscripcion;
+	
+	private boolean disabledBotonCobrar = true;
 
 	private boolean editar = false;
 	
@@ -411,6 +413,27 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onChangeFecha() {
+		
+		Caja caja = fc.getCurrentCaja(getCurrentSucursalUsuario(), this.ventaSelected.getFecha());
+		
+		if (caja == null) {
+			
+			this.mensajeError("No hay caja abierta para la fecha.");
+			this.ventaSelected.setFecha(null);
+			return;
+		}else {
+			
+			this.disabledBotonCobrar = false;
+			this.ventaSelected.setCaja(caja);
+		}
+		
+		this.ventaSelected.setCaja(caja);
+		
+	}
+	
 	
 	
 	@Command
@@ -433,9 +456,17 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 		
 		if (caja == null) {
 			
-			this.mensajeInfo("No hay caja habilitada");
+			//this.mensajeInfo();
 			
-			return;
+			Notification.show("No hay caja habilitada","error", null, null, 3000, false);
+			
+			this.disabledBotonCobrar = true;
+			
+			//return;
+			
+		}else {
+			
+			this.disabledBotonCobrar = false;
 			
 		}
 
@@ -444,7 +475,12 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 		ventaSelected = new Venta();
 		//ventaSelected.setEmpresa(this.getCurrentEmpresa());
 		ventaSelected.setSucursal(this.getCurrentSucursal());
-		ventaSelected.setCaja(caja);
+		if (caja != null) {
+			
+			ventaSelected.setCaja(caja);
+			
+		}		
+		
 		
 		Persona p = this.suscripcionSelected.getPersona();
 		
@@ -454,14 +490,11 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 		ventaSelected.setPersonaDocumento(p.getDocumentoNum());
 		ventaSelected.setDireccion(p.getDireccion());
 		
-		ventaSelected.setComprobanteTipo(ventaSelected.getSucursal().getComprobanteTipo());
+		//ventaSelected.setComprobanteTipo(ventaSelected.getSucursal().getComprobanteTipo());
 		ventaSelected.setCondicionVentaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_CONDICIONVENTA_CONTADO));
 		ventaSelected.setMonedaTipo(this.reg.getObjectBySigla(Tipo.class, ParamsLocal.SIGLA_TIPO_MONEDA_GUARANIES));
 		
-		
-		
-		Comprobante comprobante = fc.getComprobante(getCurrentSucursalUsuario(), new Date(), this.ventaSelected.getComprobanteTipo().getTipoid());
-		
+		/*Comprobante comprobante = fc.getComprobante(getCurrentSucursalUsuario(), new Date(), this.ventaSelected.getComprobanteTipo().getTipoid());
 		
 		if (comprobante == null) {
 			
@@ -471,7 +504,7 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 		
 		this.ventaSelected.setTimbrado(comprobante.getTimbrado());
 		this.ventaSelected.setTimbradoEmision(comprobante.getEmision());
-		this.ventaSelected.setTimbradoVencimiento(comprobante.getVencimiento());
+		this.ventaSelected.setTimbradoVencimiento(comprobante.getVencimiento());*/
 		
 		ventaDetalleSelected = new VentaDetalle();
 		ventaDetalleSelected.setEmpresa(getCurrentEmpresa());
@@ -740,6 +773,14 @@ public class SuscripcionVM extends TemplateViewModelLocal{
 
 	public void setDocumentoTipoFinder(FinderModel documentoTipoFinder) {
 		this.documentoTipoFinder = documentoTipoFinder;
+	}
+
+	public boolean isDisabledBotonCobrar() {
+		return disabledBotonCobrar;
+	}
+
+	public void setDisabledBotonCobrar(boolean disabledBotonCobrar) {
+		this.disabledBotonCobrar = disabledBotonCobrar;
 	}
 
 	

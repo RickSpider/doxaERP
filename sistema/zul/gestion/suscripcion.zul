@@ -27,7 +27,9 @@
 						<listheader hflex="min" align="center" />
 						<listheader label="ID" align="center"
 							hflex="min" />
+						
 						<listheader label="PERSONA" align="center" />
+						<listheader label="DOCUMETNO #" align="center" />
 						<listheader label="SERVICIO" align="center" />
 						<listheader label="INICIO" align="center" />
 						<listheader label="VENCIMIENTO" align="center" />
@@ -68,6 +70,12 @@
 								instant="true" onChange="@command('filtrarSuscripcion')"
 								hflex="1" />
 						</auxheader>
+						
+						<auxheader>
+							<textbox value="@bind(vm.filtroColumns[5])"
+								instant="true" onChange="@command('filtrarSuscripcion')"
+								hflex="1" />
+						</auxheader>
 
 						<auxheader />
 
@@ -85,6 +93,7 @@
 								style="text-align: left;" />
 							<listcell label="@load(each[3])" />
 							<listcell label="@load(each[4])" />
+							<listcell label="@load(each[5])" />
 
 
 							<listcell>

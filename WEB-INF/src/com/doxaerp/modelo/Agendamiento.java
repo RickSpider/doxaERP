@@ -3,6 +3,8 @@ package com.doxaerp.modelo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.doxacore.modelo.Tipo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,11 @@ public class Agendamiento extends ModeloERP implements Serializable{
 	private String titulo;
 	private String contenido;
 	
+	
+	@ManyToOne
+	@JoinColumn(name = "agendamientotipoid", nullable = false)
+	private Tipo agendamientoTipo;
+	
 	@ManyToOne
 	@JoinColumn(name = "sucursalid")
 	private Sucursal sucursal;
@@ -38,6 +45,18 @@ public class Agendamiento extends ModeloERP implements Serializable{
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fin;
+	
+	@ManyToOne
+	@JoinColumn(name = "servicioid")
+	private Producto servicio;
+	
+	@ManyToOne
+	@JoinColumn(name = "funcionarioid")
+	private Funcionario funcionario;
+	
+	@ManyToOne
+	@JoinColumn(name = "personaid")
+	private Persona persona;
 
 	@Override
 	public Object[] getArrayObjectDatos() {
@@ -99,4 +118,39 @@ public class Agendamiento extends ModeloERP implements Serializable{
 		this.sucursal = sucursal;
 	}
 
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
+	public Tipo getAgendamientoTipo() {
+		return agendamientoTipo;
+	}
+
+	public void setAgendamientoTipo(Tipo agendamientoTipo) {
+		this.agendamientoTipo = agendamientoTipo;
+	}
+
+	public Producto getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Producto servicio) {
+		this.servicio = servicio;
+	}
+	
+	
+
+	
 }

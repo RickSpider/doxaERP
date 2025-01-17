@@ -166,7 +166,7 @@
 
 			<tablechildren>
 				<datebox value="@bind(vm.ventaSelected.fecha)" format="dd/MM/yyyy"
-						width="150px" />
+						width="150px" onChange="@command('onChangeFecha')"/>
 			</tablechildren>
 		
 		</tablelayout>	
@@ -177,7 +177,7 @@
 
 		<hlayout>
 
-			<button label="Aceptar" onClick="@command('generarPago')" />
+			<button label="Cobrar" onClick="@command('generarPago')" disabled="@load(vm.disabledBotonCobrar)" />
 
 		</hlayout>
 

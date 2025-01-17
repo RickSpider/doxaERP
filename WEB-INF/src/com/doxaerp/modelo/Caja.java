@@ -31,7 +31,7 @@ public class Caja extends ModeloERP implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cajaid;
 	
-	@CreationTimestamp 
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date fechaApertura;

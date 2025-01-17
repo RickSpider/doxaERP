@@ -80,6 +80,10 @@ public class FacturacionVM extends TemplateViewModelLocal{
 			this.mensajeError("No hay caja abierta para la fecha.");
 			this.ventaSelected.setFecha(null);
 			return;
+		}else {
+			
+			this.disabledBotonCobrar = false;
+			this.ventaSelected.setCaja(caja);
 		}
 		
 		this.ventaSelected.setCaja(caja);

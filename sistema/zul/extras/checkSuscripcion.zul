@@ -1,0 +1,50 @@
+<?page title="checkSuscripcion" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="@load(vm.empresaSelected.razonSocial)"
+		border="normal"
+		viewModel="@id('vm') @init('com.doxaerp.sistema.extras.CheckSubscripcionVM')"
+		vflex="1" id="Body" apply="org.zkoss.bind.BindComposer">
+
+		<caption label="CheckSuscripcion" style="font-weight:bold" />
+
+
+
+		<hbox pack="center" align="center" vflex="1" hflex="1">
+
+			<image src="@load(vm.empresaSelected.logopath)"
+				style="max-width: 80vw; max-height: 80vh; width: auto; height: auto;" />
+
+			<vlayout>
+
+				<tablelayout>
+
+					<tablechildren>
+						<label value="Documento:"
+							style="font-weight:bold; font-size: 18px;" />
+					</tablechildren>
+
+					<tablechildren>
+						<textbox value="@bind(vm.documento)" onOK="@command('verificar')" onCreate="self.focus()"
+						style="font-size: 28px; text-align: right;" height="40px" width="200px"/>
+					</tablechildren>
+
+				</tablelayout>
+
+				<space height="10px" />
+
+				<hlayout>
+
+					<button label="Verificar"
+						onClick="@command('verificar')" />
+
+				</hlayout>
+
+			</vlayout>
+
+		</hbox>
+
+
+
+
+	</window>
+</zk>

@@ -46,7 +46,12 @@ public class ParamsLocal extends Params{
 	public static final String SIGLA_TIPOTIPO_SUSCRIPCION = "SUSCRIPCION";
 	public static final String SIGLA_TIPO_SUSCRIPCION_ANUAL = "SUSCRIPCION_ANUAL";
 	public static final String SIGLA_TIPO_SUSCRIPCION_MENSUAL = "SUSCRIPCION_MENSUAL";
-
+	
+	public static final String SIGLA_TIPOTIPO_FUNCIONARIO = "FUNCIONARIO";
+	
+	public static final String SIGLA_TIPOTIPO_AGENDAMIENTO = "AGENDAMIENTO";
+	public static final String SIGLA_TIPO_AGENDAMIENTO_SERVICIO = "AGENDAMIENTO_SERVICIO";
+	public static final String SIGLA_TIPO_AGENDAMIENTO_RECORDATORIO = "AGENDAMIENTO_RECORDATORIO";
 	
 	/*
 	 EJEMPLO DE COMO CREAR PARAMETROS 
@@ -111,6 +116,10 @@ public class ParamsLocal extends Params{
 	public static final String OP_CREAR_MARCA = "CrearMarca";
 	public static final String OP_EDITAR_MARCA = "EditarMarca";
 	public static final String OP_BORRAR_MARCA = "BorrarMarca";
+	
+	public static final String OP_CREAR_FUNCIONARIO = "CrearFuncionario";
+	public static final String OP_EDITAR_FUNCIONARIO = "EditarFuncionario";
+	public static final String OP_BORRAR_FUNCIONARIO = "BorrarFuncionario";
 	
 
 	

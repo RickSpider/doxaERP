@@ -1,0 +1,84 @@
+<?page title="funcionarioModal" contentType="text/html;charset=UTF-8"?>
+
+<?component name="finder" templateURI="/doxacore/zul/component/finder.zul"?>
+
+<zk>
+
+
+	<window border="normal"
+		position="center,center" closable="true" mode="modal"
+		action="show: slideDown;hide: slideUp" width="600px">
+		
+		<caption label="Funcionario Crear/Ver/Editar" style="font-weight:bold"/>
+
+		<tablelayout columns="2">
+
+			<tablechildren>
+				<label value="ID:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@load(vm.funcionarioSelected.funcionarioid)"
+					readonly="true" width="80px" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Tipo:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+					<finder	finderValue="@load(vm.funcionarioSelected.funcionarioTipo.tipo)"
+								finderModel="@init(vm.funcionarioTipoFinder)" />
+			</tablechildren>
+
+			<tablechildren>
+				<label value="Nombre:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.funcionarioSelected.nombre)" />
+			</tablechildren>
+
+			<tablechildren>
+				<label value="Apellido:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.funcionarioSelected.apellido)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Documento Tipo:" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+					<finder	finderValue="@load(vm.funcionarioSelected.documentoTipo.tipo)"
+								finderModel="@init(vm.documentoTipoFinder)" />
+			</tablechildren>
+			
+			<tablechildren>
+				<label value="Documento #" style="font-weight:bold" />
+			</tablechildren>
+
+			<tablechildren>
+				<textbox value="@bind(vm.funcionarioSelected.documentoNum)" />
+			</tablechildren>
+			
+			
+
+
+		</tablelayout>
+
+		<space height="10px" />
+
+		<hlayout>
+
+			<button label="Aceptar" onClick="@command('guardar')" />
+
+		</hlayout>
+
+
+
+
+	</window>
+</zk>

@@ -2,10 +2,6 @@ package com.doxaerp.sistema.main;
 
 
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,11 +10,13 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.calendar.impl.DefaultCalendarItem;
 import org.zkoss.calendar.impl.SimpleCalendarModel;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zul.Window;
 
+import com.doxaerp.modelo.Agendamiento;
 import com.doxaerp.sistema.main.calendar.CalendarItem;
+import com.doxaerp.util.ParamsLocal;
 import com.doxaerp.util.TemplateViewModelLocal;
 import com.ibm.icu.text.SimpleDateFormat;
 
@@ -46,7 +44,6 @@ public class CalendarVM extends TemplateViewModelLocal{
 	@Override
 	protected void inicializarOperaciones() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public void dataCharger() throws ParseException {
@@ -57,7 +54,7 @@ public class CalendarVM extends TemplateViewModelLocal{
 		
 		List<Object[]> ldatos = this.reg.sqlNativo(sqlSuscripcion);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	//	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		
 		if (ldatos != null && ldatos.size() > 0) {
@@ -96,12 +93,26 @@ public class CalendarVM extends TemplateViewModelLocal{
 				
 				CalendarItem ci = new CalendarItem();
 				ci.setLocked(true);
-				ci.setBeginDate((Date) x[2]);
 				
-				ci.setEndDate((Date) x[3]);
+				ci.setBeginDate((Date) x[1]);
 				
-				ci.setTitle(x[1].toString());
-				ci.setContent(x[4].toString());
+				ci.setEndDate((Date) x[2]);
+				
+				if (x[7].toString().compareTo(ParamsLocal.SIGLA_TIPO_AGENDAMIENTO_SERVICIO) == 0) {
+					
+					ci.setTitle(x[5].toString());
+					ci.setContent(x[6].toString());
+					
+				}else if (x[7].toString().compareTo(ParamsLocal.SIGLA_TIPO_AGENDAMIENTO_RECORDATORIO) == 0) {
+					
+					ci.setTitle(x[3].toString());
+					ci.setContent(x[4].toString());
+					
+				}
+				
+				
+				
+				
 				ci.setStyle("background-color: #008f39; color: #FFFFFF;");
 				
 				this.calendarModel.add(ci);
@@ -110,6 +121,30 @@ public class CalendarVM extends TemplateViewModelLocal{
 		}
 		
 	}
+	
+	private Window modal;
+	private Agendamiento agendamientoSelected;
+	
+	/*@Listen(CalendarsEvent.ON_ITEM_CREATE + " = #calendars; " + CalendarsEvent.ON_ITEM_EDIT + "  = #calendars")
+	public void agendamientoModal(CalendarsEvent event) {
+
+		event.stopClearGhost();
+		this.agendamientoSelected = (agendamientoSelected) event.getCalendarItem();
+		
+		if (agendamientoSelected == null) {
+			
+			this.agendamientoSelected = new agendamientoSelected();
+			this.agendamientoSelected.setRecordatorioManual(true);
+			this.agendamientoSelected.setBegin(event.getBeginDate());
+			this.agendamientoSelected.setEnd(event.getEndDate());
+			
+		}
+	
+		modal = (Window) Executions.createComponents("/instituto/zul/inicio/agendamientoModal.zul", this.mainComponent,
+				null);
+		Selectors.wireComponents(modal, this, false);
+		modal.doModal();
+	}*/
 
 	public SimpleCalendarModel getCalendarModel() {
 		return calendarModel;
